@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <title>Registro</title>
+</head>
+<body>
+  <div class="registro-form">
+    <h1>Registro</h1>
+    <form action="/auth/registro" method="POST" onsubmit="return validarSenha()">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required>
+
+      <label for="confirmarSenha">Confirmar Senha:</label>
+      <input type="password" id="confirmarSenha" name="confirmarSenha" required>
+
+      <label for="tipo">Tipo:</label>
+      <select id="tipo" name="tipo" required>
+        <option value="cliente">Cliente</option>
+        <option value="vendedor">Vendedor</option>
+      </select>
+
+      <button type="submit">Registrar</button>
+    </form>
+    <a href="/auth/login">Já tenho uma conta</a>
+  </div>
+
+  <script>
+    function validarSenha() {
+      const senha = document.getElementById('senha').value;
+      const confirmarSenha = document.getElementById('confirmarSenha').value;
+      if (senha !== confirmarSenha) {
+        alert('As senhas não coincidem. Por favor, tente novamente.');
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>

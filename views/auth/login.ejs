@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <title>Login</title>
+</head>
+<body>
+  <div class="form-container">
+    <form action="/auth/login" method="POST">
+      <h1>Login</h1>
+
+      <% if (typeof success !== 'undefined' && success.length > 0) { %>
+        <p class="success-message"><%= success %></p>
+      <% } %>
+
+      <% if (error) { %>
+        <p class="error-message"><%= error %></p>
+      <% } %>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="<%= email || '' %>" required>
+
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required>
+
+      <label for="tipoUsuario">Tipo de Usuário:</label>
+      <select id="tipoUsuario" name="tipoUsuario" required>
+        <option value="cliente">Cliente</option>
+        <option value="vendedor">Vendedor</option>
+      </select>
+
+      <div class="form-actions">
+        <button type="submit">LOGIN</button>
+        <a href="/auth/registro" class="link-cadastro">Criar Cadastro</a>
+      </div>
+
+      <div class="links-container">
+        <a href="/auth/recuperar-senha">Esqueceu a senha?</a>
+        <a href="/produtos/listar" class="btn-explorar">Explorar Produtos</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

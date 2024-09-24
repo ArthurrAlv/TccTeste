@@ -1,0 +1,26 @@
+<!-- views/admin/dashboard.ejs -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Controle do Admin</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body class="dashboard">
+  <%- include('../layouts/header') %>
+  <main>
+    <h1>Painel de Controle</h1>
+    <nav>
+      <ul class="dashboard-nav">
+        <li><a href="/admin/clientes" class="nav-item">Gerenciar Clientes</a></li>
+        <li><a href="/admin/vendedores" class="nav-item">Gerenciar Vendedores</a></li>
+        <li><a href="/admin/produtos" class="nav-item">Gerenciar Produtos</a></li>
+        <li><a href="/admin/relatorios" class="nav-item">Relatórios</a></li>
+      </ul>
+    </nav>
+  </main>
+  <%- include('../layouts/footer') %>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

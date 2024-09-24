@@ -1,0 +1,116 @@
+// assets/css/pages/_login.scss
+
+// Estilos para o contêiner do formulário
+.form-container {
+  max-width: 400px; // Aumenta a largura máxima
+  margin: 70px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: $border-radius;
+  @include box-shadow(0, 2px, 4px, rgba(0, 0, 0, 0.1));
+}
+
+// Estilos para o formulário de login
+.form-container form {
+  display: block;
+  flex-direction: column;
+  width: 100%; // Garante que o formulário use a largura total do contêiner
+  max-width: 600px; // Ajuste conforme necessário
+  margin: 0 auto; // Centraliza o formulário
+  box-sizing: border-box;
+
+  h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  label {
+    margin-top: 10px;
+  }
+
+  input, select, button {
+    border-radius: $border-radius;
+    border: 1px solid #ddd;
+    width: 100%; 
+  }
+
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 40%;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+// Contêiner para ações do formulário (Login e Criar Cadastro)
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+
+  button {
+    margin-right: 10px;
+    width: 54%; // Ajusta a largura do botão Login
+  }
+
+  .link-cadastro {
+    text-decoration: none;
+    color: #007bff;
+    width: 41%;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Contêiner para links adicionais
+.links-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+
+  a {
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .btn-explorar {
+    background-color: green;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+
+    &:hover {
+      background-color: darkgreen;
+    }
+  }
+}
+
+// Estilos para mensagens de erro e sucesso
+.error-message, .success-message {
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+}
+
+.success-message {
+  color: green;
+}

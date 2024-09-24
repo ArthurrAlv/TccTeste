@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <title>Recuperar Senha</title>
+</head>
+<body>
+  <div class="form-container">
+    <form action="/auth/recuperar-senha" method="post">
+      <h1>Recuperar Senha</h1>
+      <select id="tipoUsuario" name="tipoUsuario">
+        <option value="cliente">Cliente</option>
+        <option value="vendedor">Vendedor</option>
+      </select>
+      <input type="email" name="email" placeholder="Digite seu e-mail" required>
+      <button type="submit">Recuperar Senha</button>
+    </form>
+  </div>
+  <script type="module" src="/assets/js/main.js"></script>
+  <script>
+    document.getElementById('tipoUsuario').addEventListener('change', function() {
+      document.getElementById('tipoUsuarioHidden').value = this.value;
+    });
+  </script>
+</body>
+</html>
+

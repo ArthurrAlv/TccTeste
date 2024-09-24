@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatórios</title>
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <%- include('../layouts/header') %>
+
+  <main>
+    <h1>Relatórios</h1>
+
+    <section class="relatorio">
+      <h2>Relatório de Pedidos</h2>
+      <table class="tabela-relatorio">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Vendedor</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% pedidos.forEach(pedido => { %>
+            <tr>
+              <td><%= pedido.id %></td>
+              <td><%= pedido.clienteNome %></td>
+              <td><%= pedido.vendedorNome %></td>
+              <td>R$ <%= pedido.total.toFixed(2) %></td>
+              <td><%= pedido.status %></td>
+              <td><%= pedido.createdAt.toLocaleString('pt-BR') %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="relatorio">
+      <h2>Produtos Mais Comprados</h2>
+      <table class="tabela-relatorio">
+        <thead>
+          <tr>
+            <th>Posição</th>
+            <th>Produto</th>
+            <th>Vendedor</th>
+            <th>Total Vendido</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% rankingProdutos.forEach(produto => { %>
+            <tr>
+              <td><%= produto.posicao %></td>
+              <td><%= produto.produtoNome %></td>
+              <td><%= produto.vendedorNome %></td>
+              <td><%= produto.totalVendido %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <%- include('../layouts/footer') %>
+</body>
+</html>

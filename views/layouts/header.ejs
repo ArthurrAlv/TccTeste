@@ -1,0 +1,19 @@
+<header class="header-custom">
+  <div class="logo">MeuSite</div>
+  <nav>
+    <ul>
+      <% if (locals.session && locals.session.usuario) { %>
+        <% if (locals.session.usuario.tipoUsuario === 'cliente') { %>
+          <li><a href="/cliente/perfil">Perfil</a></li>
+        <% } else if (locals.session.usuario.tipoUsuario === 'admin') { %>
+          <li><a href="/admin/dashboard">Painel de Controle</a></li>
+        <% } %>
+        <li><a href="/auth/logout">Sair</a></li>
+      <% } else { %>
+        <li><a href="/auth/login">Login</a></li>
+        <li><a href="/auth/registro">Registrar</a></li>
+        <li><a href="/carrinho">Carrinho</a></li>
+      <% } %>
+    </ul>
+  </nav>
+</header>

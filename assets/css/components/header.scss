@@ -1,0 +1,58 @@
+.header-custom {
+    background-color: $primary-color;
+    padding: $padding;
+    color: #fff;
+    display: flex;
+    justify-content: space-between; /* Distribui os itens igualmente */
+    align-items: center; /* Alinha os itens verticalmente */
+    @include box-shadow(0, 4px, 8px, rgba(0, 0, 0, 0.1));
+    
+    nav {
+      display: flex;
+      align-items: center; /* Alinha os itens do menu verticalmente */
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-right: auto; /* Empurra os itens seguintes para a direita */
+      color: #fff;
+    }
+  
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex; /* Alinha os itens horizontalmente */
+      
+      li {
+        margin-right: 20px; /* Espaço entre os itens */
+        
+        a {
+          color: #fff;
+          text-decoration: none;
+          font-weight: bold;
+  
+          &:hover {
+            color: lighten(#fff, 20%);
+          }
+        }
+      }
+    }
+  
+    .auth-links {
+      display: flex;
+      align-items: center;
+      
+      a {
+        margin-left: 20px; /* Espaço entre os links de autenticação */
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+  
+        &:hover {
+          color: lighten(#fff, 20%);
+        }
+      }
+    }
+  }  

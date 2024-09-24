@@ -1,0 +1,32 @@
+{
+  "name": "raiz-do-projeto",
+  "version": "1.0.0",
+  "description": "raiz-do-projeto/\r │\r ├── assets/\r │   ├── css/\r │   │   └── styles.css\r │   ├── js/\r │   │   └── scripts.js\r │   ├── images/\r │   │   ├── logo.png\r │   │   └── produto1.jpg\r │   └── fonts/\r │       └── custom-font.ttf\r │\r ├── controllers/\r │   ├── authController.js\r │   ├── vendedorController.js\r │   ├── produtoController.js\r │   └── clienteController.js\r │\r ├── models/\r │   ├── cliente.js\r │   ├── vendedor.js\r │   ├── admin.js\r │   └── produto.js\r │\r ├── routes/\r │   ├── authRoutes.js\r │   ├── vendedorRoutes.js\r │   ├── produtoRoutes.js\r │   └── clienteRoutes.js\r │\r ├── views/\r │   ├── admin/\r │   ├── auth/\r │   │   ├── login.ejs\r │   │   └── registro.ejs\r │   ├── produtos/\r │   │   └── listar.ejs\r │   ├── cliente/\r │   │   ├── perfil.ejs\r │   │   ├── editarPerfil.ejs\r │   │   ├── carrinho.ejs\r │   │   └── historico.ejs\r │   ├── vendedor/\r │   │   ├── perfil.ejs\r │   │   ├── editarPerfil.ejs\r │   │   ├── editarProduto.ejs\r │   │   ├── adicionarProduto.ejs\r │   │   └── produtos.ejs\r │   └── layouts/\r │       ├── header.ejs\r │       └── footer.ejs\r │\r ├── config/\r │   └── db.js\r │\r ├── app.js\r ├── package.json\r └── .env",
+  "main": "app.js",
+  "scripts": {
+    "build-css": "sass assets/css/styles.scss assets/css/styles.css",
+    "watch-css": "sass --watch assets/css/styles.scss:assets/css/styles.css",
+    "start-server": "nodemon app.js",
+    "dev": "npm-run-all --parallel watch-css start-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "mysql2": "^3.11.0",
+    "nodemailer": "^6.9.14",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.77.8"
+  }
+}

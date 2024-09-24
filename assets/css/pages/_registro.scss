@@ -1,0 +1,59 @@
+// assets/css/pages/_registro.scss
+
+// Estilos para o formulário de registro
+.registro-form {
+  max-width: 400px; // Aumenta a largura máxima
+  margin: 70px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: $border-radius;
+  @include box-shadow(0, 2px, 4px, rgba(0, 0, 0, 0.1));
+}
+
+.registro-form form {
+  display: block;
+  flex-direction: column;
+  width: 100%; // Garante que o formulário use a largura total do contêiner
+  max-width: 600px; // Ajuste conforme necessário
+  margin: 0 auto; // Centraliza o formulário
+  box-sizing: border-box;
+
+
+.registro-form h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.registro-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+}
+.registro-form input,
+.registro-form select,
+.registro-form button {
+  width: 100%; // Garante que os campos usem a largura total do contêiner
+  margin-bottom: 15px; // Espaço entre os campos
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: $border-radius;
+  box-sizing: border-box;
+}
+
+.registro-form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+      background-color: #0056b3;
+  }
+}
+
+
+.registro-form a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}

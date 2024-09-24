@@ -1,0 +1,23 @@
+// assets/css/styles.scss
+
+// Variáveis e Mixins
+@import 'variables';
+@import 'mixins';
+
+// Estilos Globais
+@import 'globals';
+
+// Componentes Reutilizáveis
+@import 'components/header';
+@import 'components/footer';
+
+// Estilos de Páginas Específicas
+@import 'pages/login';
+@import 'pages/registro';
+@import 'pages/detalhes';
+@import 'pages/relatorios';
+@import 'pages/listar';
+@import 'pages/avisoAutenticacao';
+@import 'pages/outros';
+@import 'pages/admin';
+@import 'pages/vendedor';
