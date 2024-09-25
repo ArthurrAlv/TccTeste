@@ -36,12 +36,11 @@
   margin-bottom: 15px; // Espaço entre os campos
   padding: 10px;
   border: 1px solid #ddd;
-  border-radius: $border-radius;
   box-sizing: border-box;
 }
 
 .registro-form button {
-  background-color: #007bff;
+  background-color: $secondary-color;
   color: #fff;
   border: none;
   cursor: pointer;

@@ -1,0 +1,68 @@
+TccTeste/
+├── assets/
+│   ├── css/
+│   │   ├── components/
+│   │   │   ├── footer.scss
+│   │   │   └── header.scss
+│   │   ├── pages/
+│   │   │   ├── _admin.scss
+│   │   │   ├── _login.scss
+│   │   │   ├── _registro.scss
+│   │   │   └── _relatorios.scss
+│   │   ├── _globals.scss
+│   │   ├── _mixins.scss
+│   │   ├── _variables.scss
+│   │   ├── styles.css
+│   │   └── styles.scss
+│   ├── fonts/
+│   │   └── custom-font.ttf
+│   ├── image/
+│   │   └── if.jpg
+│   ├── js/
+│   │   ├── components/
+│   │   │   ├── dropdown.js
+│   │   │   └── modal.js
+│   │   ├── api.js
+│   │   ├── helpers.js
+│   │   ├── main.js
+│   │   ├── navigation.js
+│   │   └── scripts.js
+│   └── svg/
+│       └── LOGO.svg
+├── config/
+│   ├── db.js
+│   └── email.js
+├── controllers/
+│   ├── adminController.js
+│   └── authController.js
+├── middleware/
+│   ├── auth.js
+│   └── authAdmin.js
+├── models/
+│   ├── admin.js
+│   ├── associations.js
+│   └── usuario.js
+├── routes/
+│   ├── adminRoutes.js
+│   └── authRoutes.js
+├── seeds/
+│   └── adminSeed.js
+├── views/
+│   ├── admin/
+│   │   ├── dashboard.ejs
+│   │   ├── editarCliente.ejs
+│   │   ├── login.ejs
+│   │   ├── relatorios.ejs
+│   │   └── usuarios.ejs
+│   ├── auth/
+│   │   ├── avisoAutenticacao.ejs
+│   │   ├── login.ejs
+│   │   ├── recuperarSenha.ejs
+│   │   ├── redefinirSenha.ejs
+│   │   └── registro.ejs
+│   ├── layouts/
+│   │   ├── footer.ejs
+│   │   └── header.ejs
+│   └── usuario/
+│       └── main.ejs
+└── .env

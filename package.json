@@ -1,7 +1,7 @@
 {
-  "name": "raiz-do-projeto",
+  "name": "tccteste",
   "version": "1.0.0",
-  "description": "raiz-do-projeto/\r │\r ├── assets/\r │   ├── css/\r │   │   └── styles.css\r │   ├── js/\r │   │   └── scripts.js\r │   ├── images/\r │   │   ├── logo.png\r │   │   └── produto1.jpg\r │   └── fonts/\r │       └── custom-font.ttf\r │\r ├── controllers/\r │   ├── authController.js\r │   ├── vendedorController.js\r │   ├── produtoController.js\r │   └── clienteController.js\r │\r ├── models/\r │   ├── cliente.js\r │   ├── vendedor.js\r │   ├── admin.js\r │   └── produto.js\r │\r ├── routes/\r │   ├── authRoutes.js\r │   ├── vendedorRoutes.js\r │   ├── produtoRoutes.js\r │   └── clienteRoutes.js\r │\r ├── views/\r │   ├── admin/\r │   ├── auth/\r │   │   ├── login.ejs\r │   │   └── registro.ejs\r │   ├── produtos/\r │   │   └── listar.ejs\r │   ├── cliente/\r │   │   ├── perfil.ejs\r │   │   ├── editarPerfil.ejs\r │   │   ├── carrinho.ejs\r │   │   └── historico.ejs\r │   ├── vendedor/\r │   │   ├── perfil.ejs\r │   │   ├── editarPerfil.ejs\r │   │   ├── editarProduto.ejs\r │   │   ├── adicionarProduto.ejs\r │   │   └── produtos.ejs\r │   └── layouts/\r │       ├── header.ejs\r │       └── footer.ejs\r │\r ├── config/\r │   └── db.js\r │\r ├── app.js\r ├── package.json\r └── .env",
+  "description": "Descrição do projeto TCCTESTE",
   "main": "app.js",
   "scripts": {
     "build-css": "sass assets/css/styles.scss assets/css/styles.css",
@@ -20,7 +20,7 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
-    "mysql2": "^3.11.0",
+    "mysql2": "^3.11.3",
     "nodemailer": "^6.9.14",
     "sequelize": "^6.37.3"
   },

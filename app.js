@@ -63,7 +63,7 @@ app.listen(PORT, () => {
 });
 
 // Sincronização do Sequelize (opcional, útil durante o desenvolvimento)
-sequelize.sync({ force: true }) // Use { force: true } para reiniciar tabelas a cada execução (cuidado!)
+sequelize.sync({ force: false }) // Use { force: true } para reiniciar tabelas a cada execução (cuidado!)
   .then(() => {
     console.log('Banco de dados sincronizado');
   })
