@@ -1,3 +1,4 @@
+// models/associations
 const Produto = require('./produto');
 const Cliente = require('./cliente');
 const Vendedor = require('./vendedor');

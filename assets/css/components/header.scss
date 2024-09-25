@@ -40,6 +40,19 @@
       }
     }
   
+    .centered-image {
+      display: flex;
+      justify-content: center; /* Centraliza horizontalmente */
+      width: 100%; /* Garante que o contêiner ocupe toda a largura */
+      margin-top: 20px;
+    }
+
+    .centered-image img {
+      max-width: 200px; /* Define o tamanho máximo da imagem */
+      height: auto;
+    }
+    
+
     .auth-links {
       display: flex;
       align-items: center;

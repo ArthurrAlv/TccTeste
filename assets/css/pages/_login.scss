@@ -39,7 +39,7 @@
     color: #fff;
     border: none;
     cursor: pointer;
-    width: 40%;
+    width: 100%; // Alterado para 100% para se ajustar à largura do contêiner
 
     &:hover {
       background-color: #0056b3;
@@ -50,52 +50,46 @@
 // Contêiner para ações do formulário (Login e Criar Cadastro)
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; // Centraliza o botão de login
   align-items: center;
   margin-top: 20px;
 
   button {
-    margin-right: 10px;
-    width: 54%; // Ajusta a largura do botão Login
-  }
-
-  .link-cadastro {
-    text-decoration: none;
-    color: #007bff;
-    width: 41%;
-
-    &:hover {
-      text-decoration: underline;
-    }
+    margin-right: 10px; // Espaçamento opcional
+    width: 100%; // Botão ocupa toda a largura
   }
 }
 
-// Contêiner para links adicionais
-.links-container {
-  display: flex;
-  flex-direction: column;
+// Estilos para a checkbox "Lembrar de mim"
+.remember-me {
+  display: flex; /* Alinha o input e o texto horizontalmente */
+  align-items: center; /* Alinha o input e o texto verticalmente */
+  margin-top: 15px; /* Ajuste o espaço acima, se necessário */
+  text-align: left; /* Justifica o texto à esquerda */
+
+  input {
+    margin-right: 8px; /* Espaço entre o input e o texto */
+  }
+
+  label {
+    font-size: 0.9rem; /* Tamanho da fonte */
+  }
+}
+
+
+// Estilos para links adicionais fora do form-container
+.additional-links {
+  text-align: center; // Centraliza os links
   margin-top: 20px;
 
   a {
+    display: block; // Coloca cada link em uma nova linha
     margin-top: 10px;
     color: #007bff;
     text-decoration: none;
 
     &:hover {
       text-decoration: underline;
-    }
-  }
-
-  .btn-explorar {
-    background-color: green;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    display: inline-block;
-    text-align: center;
-
-    &:hover {
-      background-color: darkgreen;
     }
   }
 }

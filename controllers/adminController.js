@@ -1,8 +1,5 @@
-const Cliente = require('../models/cliente');
-const Vendedor = require('../models/vendedor');
-const Produto = require('../models/produto');
-const ItemPedido = require('../models/itemPedido');
-const Pedido = require('../models/pedido');
+// adminController.js
+const Usuario = require('../models/usuario');
 const Admin = require('../models/admin');
 const bcrypt = require('bcrypt');
 const sequelize = require('../config/db');
@@ -40,229 +37,58 @@ const adminController = {
     res.render('admin/dashboard');
   },
 
-  listarClientes: async (req, res) => {
+  listarUsuarios: async (req, res) => {
     try {
-      const clientes = await Cliente.findAll();
-      res.render('admin/clientes', { clientes });
+      const usuarios = await Usuario.findAll();
+      res.render('admin/usuarios', { usuarios });
     } catch (error) {
-      console.error('Erro ao listar clientes:', error);
+      console.error('Erro ao listar usuários:', error);
       res.status(500).send('Erro interno do servidor');
     }
   },
 
-  adicionarCliente: async (req, res) => {
-    try {
-      const { nome, email, senha } = req.body;
-      await Cliente.create({ nome, email, senha });
-      res.redirect('/admin/clientes');
-    } catch (error) {
-      console.error('Erro ao adicionar cliente:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  editarCliente: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const cliente = await Cliente.findByPk(id);
-      res.render('admin/editarCliente', { cliente });
-    } catch (error) {
-      console.error('Erro ao editar cliente:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  atualizarCliente: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { nome, email, senha } = req.body;
-      await Cliente.update({ nome, email, senha }, { where: { id } });
-      res.redirect('/admin/clientes');
-    } catch (error) {
-      console.error('Erro ao atualizar cliente:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  excluirCliente: async (req, res) => {
-    try {
-      const { id } = req.params;
-      await Cliente.destroy({ where: { id } });
-      res.redirect('/admin/clientes');
-    } catch (error) {
-      console.error('Erro ao excluir cliente:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  listarVendedores: async (req, res) => {
-    try {
-      const vendedores = await Vendedor.findAll();
-      res.render('admin/vendedores', { vendedores });
-    } catch (error) {
-      console.error('Erro ao listar vendedores:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  adicionarVendedor: async (req, res) => {
+  adicionarUsuario: async (req, res) => {
     try {
       const { nome, email, senha } = req.body;
-      await Vendedor.create({ nome, email, senha });
-      res.redirect('/admin/vendedores');
+      await Usuario.create({ nome, email, senha });
+      res.redirect('/admin/usuarios');
     } catch (error) {
-      console.error('Erro ao adicionar vendedor:', error);
+      console.error('Erro ao adicionar usuário:', error);
       res.status(500).send('Erro interno do servidor');
     }
   },
 
-  editarVendedor: async (req, res) => {
+  editarUsuario: async (req, res) => {
     try {
       const { id } = req.params;
-      const vendedor = await Vendedor.findByPk(id);
-      res.render('admin/editarVendedor', { vendedor });
+      const usuario = await Usuario.findByPk(id);
+      res.render('admin/editarUsuario', { usuario });
     } catch (error) {
-      console.error('Erro ao editar vendedor:', error);
+      console.error('Erro ao editar usuário:', error);
       res.status(500).send('Erro interno do servidor');
     }
   },
 
-  atualizarVendedor: async (req, res) => {
+  atualizarUsuario: async (req, res) => {
     try {
       const { id } = req.params;
       const { nome, email, senha } = req.body;
-      await Vendedor.update({ nome, email, senha }, { where: { id } });
-      res.redirect('/admin/vendedores');
+      await Usuario.update({ nome, email, senha }, { where: { id } });
+      res.redirect('/admin/usuarios');
     } catch (error) {
-      console.error('Erro ao atualizar vendedor:', error);
+      console.error('Erro ao atualizar usuário:', error);
       res.status(500).send('Erro interno do servidor');
     }
   },
 
-  excluirVendedor: async (req, res) => {
+  excluirUsuario: async (req, res) => {
     try {
       const { id } = req.params;
-      await Vendedor.destroy({ where: { id } });
-      res.redirect('/admin/vendedores');
+      await Usuario.destroy({ where: { id } });
+      res.redirect('/admin/usuarios');
     } catch (error) {
-      console.error('Erro ao excluir vendedor:', error);
+      console.error('Erro ao excluir usuário:', error);
       res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  listarProdutos: async (req, res) => {
-    try {
-      const produtos = await Produto.findAll();
-      const vendedores = await Vendedor.findAll();
-      res.render('admin/produtos', { produtos, vendedores });
-    } catch (error) {
-      console.error('Erro ao listar produtos:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  adicionarProduto: async (req, res) => {
-    try {
-      const { nome, descricao, preco, vendedor_id, estoque } = req.body;
-      await Produto.create({ nome, descricao, preco, vendedor_id, estoque });
-      res.redirect('/admin/produtos');
-    } catch (error) {
-      console.error('Erro ao adicionar produto:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  editarProduto: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const produto = await Produto.findByPk(id);
-      const vendedores = await Vendedor.findAll();
-      res.render('admin/editarProduto', { produto, vendedores });
-    } catch (error) {
-      console.error('Erro ao editar produto:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  atualizarProduto: async (req, res) => {
-    try {
-      const { id } = req.params;
-      const { nome, descricao, preco, vendedor_id, estoque } = req.body;
-      await Produto.update({ nome, descricao, preco, vendedor_id, estoque }, { where: { id } });
-      res.redirect('/admin/produtos');
-    } catch (error) {
-      console.error('Erro ao atualizar produto:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  excluirProduto: async (req, res) => {
-    try {
-      const { id } = req.params;
-      await Produto.destroy({ where: { id } });
-      res.redirect('/admin/produtos');
-    } catch (error) {
-      console.error('Erro ao excluir produto:', error);
-      res.status(500).send('Erro interno do servidor');
-    }
-  },
-
-  relatorioPedidos: async (req, res) => {
-    try {
-      // Recupera os pedidos
-      const pedidos = await Pedido.findAll({
-        include: [
-          { model: Cliente, as: 'cliente', attributes: ['nome'] },
-          { model: Vendedor, as: 'vendedor', attributes: ['nome'] },
-        ]
-      });
-
-      // Mapeia os pedidos para exibição
-      const pedidosMapeados = pedidos.map(pedido => ({
-        id: pedido.id,
-        clienteNome: pedido.cliente ? pedido.cliente.nome : 'Desconhecido',
-        vendedorNome: pedido.vendedor ? pedido.vendedor.nome : 'Desconhecido',
-        total: parseFloat(pedido.total), // Converte para número
-        status: pedido.status,
-        createdAt: pedido.createdAt,
-      }));
-
-      // Recupera os produtos mais comprados
-      const produtosMaisComprados = await ItemPedido.findAll({
-        attributes: [
-          'produto_id',
-          [sequelize.fn('SUM', sequelize.col('quantidade')), 'totalVendido']
-        ],
-        include: [
-          {
-            model: Produto,
-            attributes: ['nome', 'vendedor_id'],
-            include: [
-              { model: Vendedor, attributes: ['nome'] } // Inclui Vendedor aqui
-            ]
-          }
-        ],
-        group: ['produto_id'],
-        order: [[sequelize.literal('totalVendido'), 'DESC']],
-        limit: 10
-      });
-
-      // Mapeia os produtos para exibição
-      const rankingProdutos = produtosMaisComprados.map((item, index) => {
-        const produto = item.Produto || {}; // Protege contra undefined
-        const vendedor = produto.Vendedor || {}; // Protege contra undefined
-        return {
-          posicao: index + 1,
-          produtoNome: produto.nome || 'Desconhecido',
-          vendedorNome: vendedor.nome || 'Desconhecido',
-          totalVendido: item.get('totalVendido')
-        };
-      });
-
-      res.render('admin/relatorios', { pedidos: pedidosMapeados, rankingProdutos });
-    } catch (error) {
-      console.error('Erro ao carregar os relatórios:', error);
-      res.status(500).send('Erro no servidor');
     }
   },
 };

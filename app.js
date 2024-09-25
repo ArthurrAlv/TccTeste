@@ -51,8 +51,10 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 
+/*
 // Importar e definir associações
 require('./models/associations');
+*/
 
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
@@ -61,7 +63,7 @@ app.listen(PORT, () => {
 });
 
 // Sincronização do Sequelize (opcional, útil durante o desenvolvimento)
-sequelize.sync({ force: false }) // Use { force: true } para reiniciar tabelas a cada execução (cuidado!)
+sequelize.sync({ force: true }) // Use { force: true } para reiniciar tabelas a cada execução (cuidado!)
   .then(() => {
     console.log('Banco de dados sincronizado');
   })

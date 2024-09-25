@@ -1,7 +1,6 @@
 // authController.js
 const crypto = require('crypto');
-const Cliente = require('../models/cliente');
-const Vendedor = require('../models/vendedor');
+const Usuario = require('../models/usuario'); // Importando Usuario
 const bcrypt = require('bcrypt');
 const transporter = require('../config/email');
 const { Op } = require('sequelize');
@@ -23,31 +22,18 @@ const authController = {
   },
 
   efetuarLogin: async (req, res) => {
-    const { email, senha, tipoUsuario } = req.body;
+    const { email, senha } = req.body;
     const sanitizedEmail = sanitize(email);
     const sanitizedSenha = sanitize(senha);
   
     try {
-      let usuario = null;
-      if (tipoUsuario === 'cliente') {
-        usuario = await Cliente.findOne({ where: { email: sanitizedEmail } });
-      } else if (tipoUsuario === 'vendedor') {
-        usuario = await Vendedor.findOne({ where: { email: sanitizedEmail } });
-      } else {
-        return res.status(400).send('Tipo de usuário inválido.');
-      }
+      const usuario = await Usuario.findOne({ where: { email: sanitizedEmail } });
   
       if (usuario && usuario.verificado && bcrypt.compareSync(sanitizedSenha, usuario.senha)) {
-        req.session.usuario = { id: usuario.id, tipoUsuario };
-        // Limpar mensagem de erro, se houver
+        req.session.usuario = { id: usuario.id };
         req.flash('error', '');
-        if (tipoUsuario === 'cliente') {
-          return res.redirect('/produtos/listar');
-        } else if (tipoUsuario === 'vendedor') {
-          return res.redirect('/vendedor/produtos');
-        }
+        return res.redirect('/produtos/listar');
       } else {
-        // Definir a mensagem de erro e renderizar o login
         const mensagem = usuario && !usuario.verificado
           ? 'Por favor, verifique seu e-mail antes de fazer login.'
           : 'Credenciais inválidas.';
@@ -66,7 +52,7 @@ const authController = {
   },
 
   efetuarRegistro: async (req, res) => {
-    const { nome, email, senha, confirmarSenha, tipo } = req.body;
+    const { nome, email, senha, confirmarSenha } = req.body;
   
     if (senha !== confirmarSenha) {
       return res.status(400).send('As senhas não coincidem.');
@@ -77,30 +63,15 @@ const authController = {
     const hashedSenha = bcrypt.hashSync(sanitize(senha), 10);
   
     try {
-      // Verificar se o e-mail já está em uso
-      let usuarioExistente = null;
-      if (tipo === 'cliente') {
-        usuarioExistente = await Cliente.findOne({ where: { email: sanitizedEmail } });
-      } else if (tipo === 'vendedor') {
-        usuarioExistente = await Vendedor.findOne({ where: { email: sanitizedEmail } });
-      }
+      const usuarioExistente = await Usuario.findOne({ where: { email: sanitizedEmail } });
   
       if (usuarioExistente) {
         return res.status(400).send('Este e-mail já está em uso. Tente fazer login ou use um e-mail diferente.');
       }
   
-      let usuario = null;
       const tokenVerificacao = crypto.randomBytes(20).toString('hex');
+      const usuario = await Usuario.create({ nome: sanitizedNome, email: sanitizedEmail, senha: hashedSenha, tokenVerificacao });
   
-      if (tipo === 'cliente') {
-        usuario = await Cliente.create({ nome: sanitizedNome, email: sanitizedEmail, senha: hashedSenha, tokenVerificacao });
-      } else if (tipo === 'vendedor') {
-        usuario = await Vendedor.create({ nome: sanitizedNome, email: sanitizedEmail, senha: hashedSenha, tokenVerificacao });
-      } else {
-        return res.status(400).send('Tipo de usuário inválido.');
-      }
-  
-      // Enviar e-mail de verificação
       const mailOptions = {
         to: sanitizedEmail,
         from: process.env.EMAIL_USER,
@@ -124,7 +95,7 @@ const authController = {
     const { token } = req.params;
 
     try {
-      let usuario = await Cliente.findOne({ where: { tokenVerificacao: token } }) || await Vendedor.findOne({ where: { tokenVerificacao: token } });
+      const usuario = await Usuario.findOne({ where: { tokenVerificacao: token } });
 
       if (!usuario) {
         return res.status(400).send('Token inválido ou expirado.');
@@ -134,10 +105,7 @@ const authController = {
       usuario.tokenVerificacao = null;
       await usuario.save();
 
-      // Adicionando uma mensagem flash de sucesso
       req.flash('success', 'E-mail verificado com sucesso! Você pode fazer login agora.');
-      
-      // Redirecionar para a página de login, passando o e-mail
       res.redirect(`/auth/login?email=${usuario.email}`);
     } catch (err) {
       console.error('Erro ao verificar e-mail:', err);
@@ -155,21 +123,11 @@ const authController = {
   },
 
   solicitarRecuperacaoSenha: async (req, res) => {
-    const { email, tipoUsuario } = req.body;
-    const sanitizedEmail = sanitize(email);  // Sanitizar o e-mail
-  
-    console.log('Email recebido:', sanitizedEmail);
-    console.log('Tipo de usuário recebido:', tipoUsuario);
+    const { email } = req.body;
+    const sanitizedEmail = sanitize(email);
   
     try {
-      let usuario = null;
-      if (tipoUsuario === 'cliente') {
-        usuario = await Cliente.findOne({ where: { email: sanitizedEmail } });
-      } else if (tipoUsuario === 'vendedor') {
-        usuario = await Vendedor.findOne({ where: { email: sanitizedEmail } });
-      } else {
-        return res.status(400).send('Tipo de usuário inválido.');
-      }
+      const usuario = await Usuario.findOne({ where: { email: sanitizedEmail } });
   
       if (!usuario) {
         return res.status(404).send('Usuário não encontrado.');
@@ -205,12 +163,7 @@ const authController = {
     const { novaSenha } = req.body;
 
     try {
-      const usuario = await Cliente.findOne({
-        where: {
-          passwordResetToken: token,
-          passwordResetExpires: { [Op.gt]: Date.now() },
-        },
-      }) || await Vendedor.findOne({
+      const usuario = await Usuario.findOne({
         where: {
           passwordResetToken: token,
           passwordResetExpires: { [Op.gt]: Date.now() },
@@ -227,11 +180,8 @@ const authController = {
       usuario.passwordResetExpires = null;
       await usuario.save();
 
-    // Definir uma mensagem flash de sucesso
-    req.flash('success', 'Senha redefinida com sucesso!');
-
-    // Redirecionar para a página de login
-    res.redirect('/auth/login');
+      req.flash('success', 'Senha redefinida com sucesso!');
+      res.redirect('/auth/login');
     } catch (err) {
       console.error('Erro ao redefinir senha:', err);
       res.status(500).send('Erro ao redefinir senha.');

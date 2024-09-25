@@ -1,0 +1,649 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+main {
+  flex: 1; /* Faz com que o main expanda para ocupar o espaço restante */
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-weight: 700;
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #ffffff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 16px;
+  font-family: "Arial", sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #e6e6e6;
+}
+
+#back-button {
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+  text-align: left;
+  display: inline-block;
+}
+
+textarea {
+  resize: none;
+}
+
+#back-button:hover {
+  text-decoration: none;
+  color: white;
+}
+
+input, select {
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.header-custom {
+  background-color: #ffffff;
+  padding: 16px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between; /* Distribui os itens igualmente */
+  align-items: center; /* Alinha os itens verticalmente */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header-custom nav {
+  display: flex;
+  align-items: center; /* Alinha os itens do menu verticalmente */
+}
+.header-custom .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: auto; /* Empurra os itens seguintes para a direita */
+  color: #fff;
+}
+.header-custom ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Alinha os itens horizontalmente */
+}
+.header-custom ul li {
+  margin-right: 20px; /* Espaço entre os itens */
+}
+.header-custom ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.header-custom ul li a:hover {
+  color: white;
+}
+.header-custom .centered-image {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  width: 100%; /* Garante que o contêiner ocupe toda a largura */
+  margin-top: 20px;
+}
+.header-custom .centered-image img {
+  max-width: 200px; /* Define o tamanho máximo da imagem */
+  height: auto;
+}
+.header-custom .auth-links {
+  display: flex;
+  align-items: center;
+}
+.header-custom .auth-links a {
+  margin-left: 20px; /* Espaço entre os links de autenticação */
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.header-custom .auth-links a:hover {
+  color: white;
+}
+
+footer {
+  background-color: #222222;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+footer p {
+  margin: 0;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 70px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-container form {
+  display: block;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.form-container form h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.form-container form label {
+  margin-top: 10px;
+}
+.form-container form input, .form-container form select, .form-container form button {
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+.form-container form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.form-container form button:hover {
+  background-color: #0056b3;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.form-actions button {
+  margin-right: 10px;
+  width: 100%;
+}
+
+.remember-me {
+  display: flex; /* Alinha o input e o texto horizontalmente */
+  align-items: center; /* Alinha o input e o texto verticalmente */
+  margin-top: 15px; /* Ajuste o espaço acima, se necessário */
+  text-align: left; /* Justifica o texto à esquerda */
+}
+.remember-me input {
+  margin-right: 8px; /* Espaço entre o input e o texto */
+}
+.remember-me label {
+  font-size: 0.9rem; /* Tamanho da fonte */
+}
+
+.additional-links {
+  text-align: center;
+  margin-top: 20px;
+}
+.additional-links a {
+  display: block;
+  margin-top: 10px;
+  color: #007bff;
+  text-decoration: none;
+}
+.additional-links a:hover {
+  text-decoration: underline;
+}
+
+.error-message, .success-message {
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+}
+
+.success-message {
+  color: green;
+}
+
+.registro-form {
+  max-width: 400px;
+  margin: 70px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.registro-form form {
+  display: block;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.registro-form form .registro-form h1 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+.registro-form form .registro-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.registro-form input,
+.registro-form select,
+.registro-form button {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.registro-form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+.registro-form button:hover {
+  background-color: #0056b3;
+}
+
+.registro-form a {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.relatorio {
+  margin: 40px 20px;
+}
+
+.tabela-relatorio {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background-color: #fff;
+}
+
+.tabela-relatorio th, .tabela-relatorio td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.tabela-relatorio th {
+  background-color: #f2f2f2;
+  color: #333;
+  font-weight: bold;
+}
+
+.tabela-relatorio tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabela-relatorio tr:hover {
+  background-color: #eaeaea;
+}
+
+@media (max-width: 768px) {
+  .tabela-relatorio {
+    border: 0;
+  }
+  .tabela-relatorio thead {
+    display: none;
+  }
+  .tabela-relatorio tr {
+    display: block;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .tabela-relatorio td {
+    display: block;
+    text-align: right;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    padding-left: 50%;
+  }
+  .tabela-relatorio td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+}
+.gerenciar-produtos main {
+  padding: 20px;
+}
+.gerenciar-produtos main h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.gerenciar-produtos main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.gerenciar-produtos main table th, .gerenciar-produtos main table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.gerenciar-produtos main table th {
+  background-color: #f4f4f4;
+}
+.gerenciar-produtos main table td {
+  background-color: #fff;
+}
+.gerenciar-produtos main table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.gerenciar-produtos main .adicionar-produto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.gerenciar-produtos main .adicionar-produto-form input, .gerenciar-produtos main .adicionar-produto-form select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+.gerenciar-produtos main .adicionar-produto-form input:focus, .gerenciar-produtos main .adicionar-produto-form select:focus {
+  border-color: #aaa;
+  outline: none;
+}
+.gerenciar-produtos main .adicionar-produto-form button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.gerenciar-produtos main .adicionar-produto-form button:hover {
+  background-color: #0056b3;
+}
+.gerenciar-produtos main a {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.gerenciar-produtos main a:hover {
+  text-decoration: underline;
+}
+.gerenciar-produtos main form {
+  display: inline;
+}
+.gerenciar-produtos main form button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.gerenciar-produtos main form button:hover {
+  background-color: #c82333;
+}
+
+.gerenciar-vendedores main {
+  padding: 20px;
+}
+.gerenciar-vendedores main h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.gerenciar-vendedores main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.gerenciar-vendedores main table th, .gerenciar-vendedores main table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.gerenciar-vendedores main table th {
+  background-color: #f4f4f4;
+}
+.gerenciar-vendedores main table td {
+  background-color: #fff;
+}
+.gerenciar-vendedores main table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form input:focus {
+  border-color: #aaa;
+  outline: none;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.gerenciar-vendedores main .adicionar-vendedor-form button:hover {
+  background-color: #0056b3;
+}
+.gerenciar-vendedores main a {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.gerenciar-vendedores main a:hover {
+  text-decoration: underline;
+}
+.gerenciar-vendedores main form {
+  display: inline;
+}
+.gerenciar-vendedores main form button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.gerenciar-vendedores main form button:hover {
+  background-color: #c82333;
+}
+
+.gerenciar-clientes main {
+  padding: 20px;
+}
+.gerenciar-clientes main h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.gerenciar-clientes main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.gerenciar-clientes main table th, .gerenciar-clientes main table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.gerenciar-clientes main table th {
+  background-color: #f4f4f4;
+}
+.gerenciar-clientes main table td {
+  background-color: #fff;
+}
+.gerenciar-clientes main table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.gerenciar-clientes main .adicionar-cliente-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.gerenciar-clientes main .adicionar-cliente-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+.gerenciar-clientes main .adicionar-cliente-form input:focus {
+  border-color: #aaa;
+  outline: none;
+}
+.gerenciar-clientes main .adicionar-cliente-form button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.gerenciar-clientes main .adicionar-cliente-form button:hover {
+  background-color: #0056b3;
+}
+.gerenciar-clientes main a {
+  color: #007bff;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.gerenciar-clientes main a:hover {
+  text-decoration: underline;
+}
+.gerenciar-clientes main form {
+  display: inline;
+}
+.gerenciar-clientes main form button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.gerenciar-clientes main form button:hover {
+  background-color: #c82333;
+}
+
+.dashboard {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+}
+.dashboard main {
+  flex: 1; /* Faz com que o main expanda para ocupar o espaço disponível */
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.dashboard main h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+}
+.dashboard main nav {
+  margin-top: 2rem;
+}
+.dashboard main nav .dashboard-nav {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.dashboard main nav .dashboard-nav .nav-item {
+  display: block;
+  padding: 1rem;
+  font-size: 1.125rem;
+  color: #007bff;
+  text-decoration: none;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+}
+.dashboard main nav .dashboard-nav .nav-item:hover {
+  background-color: #e2e6ea;
+  color: #0056b3;
+}
+
+/*# sourceMappingURL=styles.css.map */
