@@ -41,6 +41,8 @@ app.set('views', path.join(__dirname, 'views'));
 // Importar e usar as rotas
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const digitalRoutes = require('./routes/digitalRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // Rota raiz que redireciona para /auth/login
 app.get('/', (req, res) => {
@@ -50,6 +52,8 @@ app.get('/', (req, res) => {
 // Registro das rotas
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
+app.use('/digitais', digitalRoutes);
+app.use('/usuario', userRoutes);
 
 /*
 // Importar e definir associações

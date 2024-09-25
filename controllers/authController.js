@@ -8,10 +8,6 @@ const { Op } = require('sequelize');
 const sanitize = (input) => input.trim();
 
 const authController = {
-  renderizarAvisoAutenticacao: (req, res) => {
-    res.render('auth/avisoAutenticacao', { error: false });
-  },
-
   renderizarLogin: (req, res) => {
     const successMessage = req.flash('success');
     res.render('auth/login', { 
@@ -32,7 +28,7 @@ const authController = {
       if (usuario && usuario.verificado && bcrypt.compareSync(sanitizedSenha, usuario.senha)) {
         req.session.usuario = { id: usuario.id };
         req.flash('error', '');
-        return res.redirect('/produtos/listar');
+        return res.redirect('/usuario/main');
       } else {
         const mensagem = usuario && !usuario.verificado
           ? 'Por favor, verifique seu e-mail antes de fazer login.'
