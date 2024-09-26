@@ -9,40 +9,39 @@
 <body>
   <%- include('../layouts/header') %>
 
-  <div class="form-container">
-    <form action="/auth/login" method="POST">
+  <main>
+    <div class="form-container">
+      <form action="/auth/login" method="POST">
+        <% if (typeof success !== 'undefined' && success.length > 0) { %>
+          <p class="success-message"><%= success %></p>
+        <% } %>
 
-      <% if (typeof success !== 'undefined' && success.length > 0) { %>
-        <p class="success-message"><%= success %></p>
-      <% } %>
+        <% if (error) { %>
+          <p class="error-message"><%= error %></p>
+        <% } %>
 
-      <% if (error) { %>
-        <p class="error-message"><%= error %></p>
-      <% } %>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<%= email || '' %>" required>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" value="<%= email || '' %>" required>
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required>
 
-      <label for="senha">Senha:</label>
-      <input type="password" id="senha" name="senha" required>
+        <div class="remember-me">
+          <input type="checkbox" id="remember" name="remember">
+          <label for="remember">Lembrar de mim</label>
+        </div>        
 
-      <!-- Caixa de seleção "Lembrar de mim" -->
-      <div class="remember-me">
-        <input type="checkbox" id="remember" name="remember">
-        <label for="remember">Lembrar de mim</label>
-      </div>
+        <div class="form-actions">
+          <button type="submit">LOGIN</button>
+        </div>
+      </form>
+    </div>
 
-      <div class="form-actions">
-        <button type="submit">LOGIN</button>
-      </div>
-    </form>
-  </div>
-
-  <!-- Links fora do form-container -->
-  <div class="additional-links">
-    <a href="/auth/recuperar-senha">Esqueci minha senha</a><br>
-    <a href="/auth/registro" class="link-cadastro">Não possuo cadastro</a>
-  </div>
+    <div class="additional-links">
+      <a href="/auth/recuperar-senha">Esqueci minha senha</a><br>
+      <a href="/auth/registro" class="link-cadastro">Não possuo cadastro</a>
+    </div>
+  </main>
 
   <%- include('../layouts/footer') %>
 </body>

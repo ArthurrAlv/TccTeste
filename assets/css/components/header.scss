@@ -1,71 +1,64 @@
 .header-custom {
-    background-color: $primary-color;
-    padding: $padding;
+  background-color: $primary-color;
+  padding: $padding;
+  color: #fff;
+  display: flex;
+  align-items: center; /* Alinha os itens verticalmente */
+  position: relative; /* Para permitir o uso de posicionamento absoluto */
+  padding-left: 40px; /* Adiciona espaçamento do lado esquerdo */
+  padding-right: 40px; /* Adiciona espaçamento do lado direito */
+  
+  @include box-shadow(0, 4px, 8px, rgba(0, 0, 0, 0.1));
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
     color: #fff;
-    display: flex;
-    justify-content: space-between; /* Distribui os itens igualmente */
-    align-items: center; /* Alinha os itens verticalmente */
-    @include box-shadow(0, 4px, 8px, rgba(0, 0, 0, 0.1));
-    
-    nav {
-      display: flex;
-      align-items: center; /* Alinha os itens do menu verticalmente */
-    }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-right: auto; /* Empurra os itens seguintes para a direita */
-      color: #fff;
-    }
-  
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      display: flex; /* Alinha os itens horizontalmente */
-      
-      li {
-        margin-right: 20px; /* Espaço entre os itens */
-        
-        a {
-          color: #fff;
-          text-decoration: none;
-          font-weight: bold;
-  
-          &:hover {
-            color: lighten(#fff, 20%);
-          }
-        }
-      }
-    }
-  
-    .centered-image {
-      display: flex;
-      justify-content: center; /* Centraliza horizontalmente */
-      width: 100%; /* Garante que o contêiner ocupe toda a largura */
-      margin-top: 20px;
-    }
-
-    .centered-image img {
-      max-width: 200px; /* Define o tamanho máximo da imagem */
+    img {
+      width: 300px;
       height: auto;
     }
-    
+  }
 
-    .auth-links {
-      display: flex;
-      align-items: center;
+  nav {
+    display: flex;
+    align-items: center; /* Alinha os itens do menu verticalmente */
+    margin-left: auto; /* Move o nav para a direita */
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Alinha os itens horizontalmente */
+    
+    li {
+      margin-right: 20px; /* Espaço entre os itens */
       
       a {
-        margin-left: 20px; /* Espaço entre os links de autenticação */
-        color: #fff;
+        color: $secondary-color;
         text-decoration: none;
         font-weight: bold;
-  
+
         &:hover {
-          color: lighten(#fff, 20%);
+          color: lighten(#414141, 20%);
         }
       }
     }
-  }  
+  }
+
+  .centered-image {
+    position: absolute; /* Posiciona a imagem centralizada em relação ao pai */
+    left: 50%; /* Move para o centro horizontal */
+    transform: translateX(-50%); /* Ajusta a posição para centralizar */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    
+    img {
+      max-width: 200px; /* Define o tamanho máximo da imagem */
+      height: auto;
+      min-width: 200px;
+    }
+  }
+}

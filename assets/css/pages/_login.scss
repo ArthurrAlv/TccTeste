@@ -2,22 +2,25 @@
 
 // Estilos para o contêiner do formulário
 .form-container {
-  max-width: 400px; // Aumenta a largura máxima
-  margin: 70px auto;
+  max-width: 600px; // Largura máxima
+  width: 90%; // Largura inicial em 90%
+  margin: 70px auto; // Margens superior e inferior
   padding: 20px;
   background-color: #fff;
-  border-radius: $border-radius;
-  @include box-shadow(0, 2px, 4px, rgba(0, 0, 0, 0.1));
+
+  // Responsividade com media query
+  @media (max-width: 600px) {
+    margin: 20px; // Reduz as margens em telas menores
+    width: calc(100% - 40px); // Faz com que o contêiner use quase toda a largura disponível, menos a margem
+  }
 }
 
 // Estilos para o formulário de login
 .form-container form {
-  display: block;
-  flex-direction: column;
+  display: flex; // Mudar para flex para alinhamento
+  flex-direction: column; // Colocar os itens em coluna
   width: 100%; // Garante que o formulário use a largura total do contêiner
-  max-width: 600px; // Ajuste conforme necessário
-  margin: 0 auto; // Centraliza o formulário
-  box-sizing: border-box;
+  box-sizing: border-box; // Para garantir que o padding não afete a largura total
 
   h1 {
     margin-bottom: 20px;
@@ -31,7 +34,9 @@
   input, select, button {
     border-radius: $border-radius;
     border: 1px solid #ddd;
-    width: 100%; 
+    margin-bottom: 15px; // Espaço entre os campos
+    padding: 10px; // Adiciona padding para os campos
+    box-sizing: border-box; // Para garantir que o padding não afete a largura total
   }
 
   button {
@@ -39,24 +44,11 @@
     color: #fff;
     border: none;
     cursor: pointer;
-    width: 100%; // Alterado para 100% para se ajustar à largura do contêiner
+    width: 100%; // Botão ocupa toda a largura
 
     &:hover {
       background-color: #0056b3;
     }
-  }
-}
-
-// Contêiner para ações do formulário (Login e Criar Cadastro)
-.form-actions {
-  display: flex;
-  justify-content: center; // Centraliza o botão de login
-  align-items: center;
-  margin-top: 20px;
-
-  button {
-    margin-right: 10px; // Espaçamento opcional
-    width: 100%; // Botão ocupa toda a largura
   }
 }
 
@@ -65,22 +57,28 @@
   display: flex; /* Alinha o input e o texto horizontalmente */
   align-items: center; /* Alinha o input e o texto verticalmente */
   margin-top: 15px; /* Ajuste o espaço acima, se necessário */
-  text-align: left; /* Justifica o texto à esquerda */
+  width: 100%; /* Garante que o contêiner ocupe toda a largura */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
 
   input {
     margin-right: 8px; /* Espaço entre o input e o texto */
+    cursor: pointer; /* Muda o cursor ao passar sobre o checkbox */
+    width: auto; /* Deixa o checkbox com largura automática */
+    height: auto; /* Deixa o checkbox com altura automática */
   }
 
   label {
     font-size: 0.9rem; /* Tamanho da fonte */
+    flex: 1; /* Faz com que o label ocupe o restante da largura */
+    white-space: nowrap; /* Impede que o texto quebre para uma nova linha */
   }
 }
-
 
 // Estilos para links adicionais fora do form-container
 .additional-links {
   text-align: center; // Centraliza os links
-  margin-top: 20px;
+  margin-top: -20px;
+  margin-bottom: 40px; // Adiciona margem inferior para espaçamento
 
   a {
     display: block; // Coloca cada link em uma nova linha

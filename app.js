@@ -74,3 +74,5 @@ sequelize.sync({ force: false }) // Use { force: true } para reiniciar tabelas a
   .catch(err => {
     console.error('Erro ao sincronizar banco de dados:', err);
   });
+
+

@@ -1,14 +1,18 @@
 // assets/css/components/footer.scss
 
 footer {
-    background-color: $secondary-color;
-    color: #fff;
-    text-align: center;
-    padding: $padding;
-    @include box-shadow(0, -4px, 8px, rgba(0, 0, 0, 0.1));
+  background-color: $secondary-color;
+  color: #fff;
+  text-align: center;
+  padding: $padding;
+  @include box-shadow(0, -4px, 8px, rgba(0, 0, 0, 0.1));
+  min-height: 100px;
+
+  display: flex; /* Adiciona o display flex */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
   
-    p {
-      margin: 0;
-    }
+  p {
+    margin: 0;
   }
-  
+}

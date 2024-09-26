@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 html, body {
-  height: 100%;
+  min-height: 100vh; /* Faz o corpo ocupar pelo menos a altura da tela */
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -15,7 +15,10 @@ body {
 }
 
 main {
-  flex: 1; /* Faz com que o main expanda para ocupar o espaço restante */
+  flex: 1; /* Permite que o main ocupe todo o espaço restante */
+  display: flex; /* Adiciona display flex para centralização vertical se necessário */
+  flex-direction: column; /* Alinha itens verticalmente */
+  justify-content: center; /* Centraliza o conteúdo verticalmente se necessário */
 }
 
 h1 {
@@ -43,7 +46,7 @@ button {
   transition: background-color 0.3s ease;
 }
 button:hover {
-  background-color: #e6e6e6;
+  background-color: rgb(229.5, 229.5, 229.5);
 }
 
 #back-button {
@@ -69,7 +72,7 @@ textarea {
 
 input, select {
   padding: 10px;
-  border: 1px solid gray;
+  border: 1px solid rgb(127.5, 127.5, 127.5);
   width: 100%;
   box-sizing: border-box;
   margin-bottom: 20px;
@@ -81,19 +84,25 @@ input, select {
   padding: 16px;
   color: #fff;
   display: flex;
-  justify-content: space-between; /* Distribui os itens igualmente */
   align-items: center; /* Alinha os itens verticalmente */
+  position: relative; /* Para permitir o uso de posicionamento absoluto */
+  padding-left: 40px; /* Adiciona espaçamento do lado esquerdo */
+  padding-right: 40px; /* Adiciona espaçamento do lado direito */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.header-custom nav {
-  display: flex;
-  align-items: center; /* Alinha os itens do menu verticalmente */
 }
 .header-custom .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  margin-right: auto; /* Empurra os itens seguintes para a direita */
   color: #fff;
+}
+.header-custom .logo img {
+  width: 300px;
+  height: auto;
+}
+.header-custom nav {
+  display: flex;
+  align-items: center; /* Alinha os itens do menu verticalmente */
+  margin-left: auto; /* Move o nav para a direita */
 }
 .header-custom ul {
   list-style-type: none;
@@ -105,35 +114,24 @@ input, select {
   margin-right: 20px; /* Espaço entre os itens */
 }
 .header-custom ul li a {
-  color: #fff;
+  color: #222222;
   text-decoration: none;
   font-weight: bold;
 }
 .header-custom ul li a:hover {
-  color: white;
+  color: #747474;
 }
 .header-custom .centered-image {
+  position: absolute; /* Posiciona a imagem centralizada em relação ao pai */
+  left: 50%; /* Move para o centro horizontal */
+  transform: translateX(-50%); /* Ajusta a posição para centralizar */
   display: flex;
   justify-content: center; /* Centraliza horizontalmente */
-  width: 100%; /* Garante que o contêiner ocupe toda a largura */
-  margin-top: 20px;
 }
 .header-custom .centered-image img {
   max-width: 200px; /* Define o tamanho máximo da imagem */
   height: auto;
-}
-.header-custom .auth-links {
-  display: flex;
-  align-items: center;
-}
-.header-custom .auth-links a {
-  margin-left: 20px; /* Espaço entre os links de autenticação */
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-}
-.header-custom .auth-links a:hover {
-  color: white;
+  min-width: 200px;
 }
 
 footer {
@@ -142,26 +140,33 @@ footer {
   text-align: center;
   padding: 16px;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+  min-height: 100px;
+  display: flex; /* Adiciona o display flex */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
 }
 footer p {
   margin: 0;
 }
 
 .form-container {
-  max-width: 400px;
+  max-width: 600px;
+  width: 90%;
   margin: 70px auto;
   padding: 20px;
   background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 600px) {
+  .form-container {
+    margin: 20px;
+    width: calc(100% - 40px);
+  }
 }
 
 .form-container form {
-  display: block;
+  display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
   box-sizing: border-box;
 }
 .form-container form h1 {
@@ -174,7 +179,9 @@ footer p {
 .form-container form input, .form-container form select, .form-container form button {
   border-radius: 4px;
   border: 1px solid #ddd;
-  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  box-sizing: border-box;
 }
 .form-container form button {
   background-color: #222222;
@@ -187,33 +194,29 @@ footer p {
   background-color: #0056b3;
 }
 
-.form-actions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-}
-.form-actions button {
-  margin-right: 10px;
-  width: 100%;
-}
-
 .remember-me {
   display: flex; /* Alinha o input e o texto horizontalmente */
   align-items: center; /* Alinha o input e o texto verticalmente */
   margin-top: 15px; /* Ajuste o espaço acima, se necessário */
-  text-align: left; /* Justifica o texto à esquerda */
+  width: 100%; /* Garante que o contêiner ocupe toda a largura */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
 }
 .remember-me input {
   margin-right: 8px; /* Espaço entre o input e o texto */
+  cursor: pointer; /* Muda o cursor ao passar sobre o checkbox */
+  width: auto; /* Deixa o checkbox com largura automática */
+  height: auto; /* Deixa o checkbox com altura automática */
 }
 .remember-me label {
   font-size: 0.9rem; /* Tamanho da fonte */
+  flex: 1; /* Faz com que o label ocupe o restante da largura */
+  white-space: nowrap; /* Impede que o texto quebre para uma nova linha */
 }
 
 .additional-links {
   text-align: center;
-  margin-top: 20px;
+  margin-top: -20px;
+  margin-bottom: 40px;
 }
 .additional-links a {
   display: block;
@@ -240,27 +243,33 @@ footer p {
 }
 
 .registro-form {
-  max-width: 400px;
+  max-width: 600px;
+  width: 90%;
   margin: 70px auto;
   padding: 20px;
   background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+@media (max-width: 600px) {
+  .registro-form {
+    margin: 20px;
+    width: calc(100% - 40px);
+  }
 }
 
 .registro-form form {
-  display: block;
+  display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
   box-sizing: border-box;
 }
-.registro-form form .registro-form h1 {
+
+.registro-form h1 {
   margin-bottom: 20px;
   text-align: center;
 }
-.registro-form form .registro-form label {
+
+.registro-form label {
   display: block;
   margin-bottom: 5px;
 }

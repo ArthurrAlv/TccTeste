@@ -1,17 +1,17 @@
 <header class="header-custom">
   <div class="logo">
-    <img src="/assets/image/if.jpg" alt="IFNMG">
+    <img src="/assets/image/ifnmg_horizontal.png" alt="IFNMG">
   </div>
 
   <!-- Imagem centralizada horizontalmente -->
   <div class="centered-image">
-    <img src="/assets/image/seu-logo.jpg" alt="Imagem Centralizada">
+    <img src="/assets/svg/logoLancheGO.SVG" alt="lancheGO">
   </div>
 
-  <nav>
+  <nav class="links-header">
     <ul>
       <% if (locals.session && locals.session.usuario) { %>
-        <% if (locals.session.usuario.tipoUsuario === 'cliente') { %>
+        <% if (locals.session.usuario.tipoUsuario === 'usuario') { %>
           <li><a href="/cliente/perfil">Perfil</a></li>
         <% } else if (locals.session.usuario.tipoUsuario === 'admin') { %>
           <li><a href="/admin/dashboard">Painel de Controle</a></li>
@@ -20,7 +20,6 @@
       <% } else { %>
         <li><a href="/auth/login">Login</a></li>
         <li><a href="/auth/registro">Registrar</a></li>
-        <li><a href="/carrinho">Carrinho</a></li>
       <% } %>
     </ul>
   </nav>

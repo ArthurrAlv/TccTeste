@@ -2,22 +2,26 @@
 
 // Estilos para o formulário de registro
 .registro-form {
-  max-width: 400px; // Aumenta a largura máxima
-  margin: 70px auto;
+  max-width: 600px; // Largura máxima
+  width: 90%; // Largura inicial em 90%
+  margin: 70px auto; // Margens superior e inferior
   padding: 20px;
   background-color: #fff;
-  border-radius: $border-radius;
-  @include box-shadow(0, 2px, 4px, rgba(0, 0, 0, 0.1));
+  box-sizing: border-box; // Para garantir que o padding não afete a largura total
+
+  // Responsividade com media query
+  @media (max-width: 600px) {
+    margin: 20px; // Reduz as margens em telas menores
+    width: calc(100% - 40px); // Faz com que o contêiner use quase toda a largura disponível, menos a margem
+  }
 }
 
 .registro-form form {
-  display: block;
-  flex-direction: column;
+  display: flex; // Usar flexbox para alinhamento
+  flex-direction: column; // Colocar os itens em coluna
   width: 100%; // Garante que o formulário use a largura total do contêiner
-  max-width: 600px; // Ajuste conforme necessário
-  margin: 0 auto; // Centraliza o formulário
-  box-sizing: border-box;
-
+  box-sizing: border-box; // Para garantir que o padding não afete a largura total
+}
 
 .registro-form h1 {
   margin-bottom: 20px;
@@ -28,7 +32,7 @@
   display: block;
   margin-bottom: 5px;
 }
-}
+
 .registro-form input,
 .registro-form select,
 .registro-form button {
@@ -36,7 +40,7 @@
   margin-bottom: 15px; // Espaço entre os campos
   padding: 10px;
   border: 1px solid #ddd;
-  box-sizing: border-box;
+  box-sizing: border-box; // Para garantir que o padding não afete a largura total
 }
 
 .registro-form button {
@@ -46,10 +50,9 @@
   cursor: pointer;
 
   &:hover {
-      background-color: #0056b3;
+    background-color: #0056b3;
   }
 }
-
 
 .registro-form a {
   display: block;

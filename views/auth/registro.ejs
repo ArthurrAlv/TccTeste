@@ -8,37 +8,41 @@
 </head>
 <body>
   <%- include('../layouts/header') %>
-  <div class="registro-form">
-    <h1>Cadastro</h1>
-    <form action="/auth/registro" method="POST" onsubmit="return validarSenha()">
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" name="nome" required>
+  
+  <main>
+    <div class="registro-form">
+      <h1>Cadastro</h1>
+      <form action="/auth/registro" method="POST" onsubmit="return validarSenha()">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" required>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
 
-      <label for="senha">Senha</label>
-      <input type="password" id="senha" name="senha" required>
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required>
 
-      <label for="confirmarSenha">Confirme sua Senha</label>
-      <input type="password" id="confirmarSenha" name="confirmarSenha" required>
+        <label for="confirmarSenha">Confirme sua Senha</label>
+        <input type="password" id="confirmarSenha" name="confirmarSenha" required>
 
-      <button type="submit">Registrar</button>
-    </form>
-    <a href="/auth/login">Já tenho uma conta</a>
-  </div>
+        <button type="submit">Registrar</button>
+      </form>
+      <a href="/auth/login">Já tenho uma conta</a>
+    </div>
 
-  <script>
-    function validarSenha() {
-      const senha = document.getElementById('senha').value;
-      const confirmarSenha = document.getElementById('confirmarSenha').value;
-      if (senha !== confirmarSenha) {
-        alert('As senhas não coincidem. Por favor, tente novamente.');
-        return false;
+    <script>
+      function validarSenha() {
+        const senha = document.getElementById('senha').value;
+        const confirmarSenha = document.getElementById('confirmarSenha').value;
+        if (senha !== confirmarSenha) {
+          alert('As senhas não coincidem. Por favor, tente novamente.');
+          return false;
+        }
+        return true;
       }
-      return true;
-    }
-  </script>
-<%- include('../layouts/footer') %>
+    </script>
+  </main>
+
+  <%- include('../layouts/footer') %>
 </body>
 </html>
