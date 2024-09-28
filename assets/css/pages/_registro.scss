@@ -14,6 +14,10 @@
     margin: 20px; // Reduz as margens em telas menores
     width: calc(100% - 40px); // Faz com que o contêiner use quase toda a largura disponível, menos a margem
   }
+
+  @media (min-width: 2020px) {
+        max-width: 800px;
+  }
 }
 
 .registro-form form {
@@ -37,10 +41,6 @@
 .registro-form select,
 .registro-form button {
   width: 100%; // Garante que os campos usem a largura total do contêiner
-  margin-bottom: 15px; // Espaço entre os campos
-  padding: 10px;
-  border: 1px solid #ddd;
-  box-sizing: border-box; // Para garantir que o padding não afete a largura total
 }
 
 .registro-form button {
@@ -50,7 +50,7 @@
   cursor: pointer;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: $tertiary-color;
   }
 }
 

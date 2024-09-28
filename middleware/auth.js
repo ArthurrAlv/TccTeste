@@ -1,4 +1,4 @@
-// Middleware de autenticação
+// middleware/auth.js
 const authMiddleware = (req, res, next) => {
   console.log('Verificando autenticação...');
   if (req.session && req.session.usuario) {

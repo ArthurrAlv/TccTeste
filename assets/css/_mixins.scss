@@ -5,7 +5,7 @@
   }
   
   @mixin button-style($bg-color: $primary-color, $text-color: #fff) {
-    background-color: $bg-color;
+    background-color: $secondary-color;
     color: $text-color;
     border: none;
     border-radius: $border-radius;
@@ -13,9 +13,10 @@
     font-family: $font-family;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 100%;
   
     &:hover {
-      background-color: darken($bg-color, 10%);
+      background-color: $tertiary-color;
     }
   }
   

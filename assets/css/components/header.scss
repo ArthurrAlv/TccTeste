@@ -3,11 +3,12 @@
   padding: $padding;
   color: #fff;
   display: flex;
-  align-items: center; /* Alinha os itens verticalmente */
-  position: relative; /* Para permitir o uso de posicionamento absoluto */
-  padding-left: 40px; /* Adiciona espaçamento do lado esquerdo */
-  padding-right: 40px; /* Adiciona espaçamento do lado direito */
-  
+  align-items: center;
+  position: relative;
+  padding-left: 40px;
+  padding-right: 40px;
+  flex-wrap: wrap; // Permite quebrar linhas quando necessário
+
   @include box-shadow(0, 4px, 8px, rgba(0, 0, 0, 0.1));
 
   .logo {
@@ -18,24 +19,44 @@
     img {
       width: 300px;
       height: auto;
+      max-width: 100%; // Garante que a imagem não extrapole o contêiner
+    }
+  }
+  .links-header {
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  .centered-image {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    
+    img {
+      max-width: 200px;
+      height: auto;
+      min-width: 150px; // Ajusta a largura mínima
     }
   }
 
   nav {
     display: flex;
-    align-items: center; /* Alinha os itens do menu verticalmente */
-    margin-left: auto; /* Move o nav para a direita */
+    align-items: center;
+    margin-left: auto;
   }
 
   ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    display: flex; /* Alinha os itens horizontalmente */
-    
+    display: flex;
+
     li {
-      margin-right: 20px; /* Espaço entre os itens */
-      
+      margin-right: 20px;
+
       a {
         color: $secondary-color;
         text-decoration: none;
@@ -48,17 +69,50 @@
     }
   }
 
-  .centered-image {
-    position: absolute; /* Posiciona a imagem centralizada em relação ao pai */
-    left: 50%; /* Move para o centro horizontal */
-    transform: translateX(-50%); /* Ajusta a posição para centralizar */
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    
-    img {
-      max-width: 200px; /* Define o tamanho máximo da imagem */
-      height: auto;
-      min-width: 200px;
+  @media (max-width: 800px) {
+    .logo {
+      img {
+        width: 170px; // Ajusta a largura da logo para telas menores
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column; // Alinha elementos verticalmente
+    padding: 20px;
+
+    .logo {
+      img {
+        width: 200px; // Ajusta a largura da logo para telas menores
+      }
+    }
+
+    .centered-image {
+      position: static; // Remove o posicionamento absoluto
+      transform: none; 
+      margin: 10px 0; // Adiciona margem para espaçamento
+    }
+
+    nav {
+      margin-left: 0; // Centraliza o menu de navegação
+    }
+
+    ul {
+      flex-direction: column; // Alinha os itens verticalmente
+      li {
+        margin-right: 0; // Remove o espaçamento entre os itens
+        margin-bottom: 10px; // Adiciona margem inferior para espaçamento
+      }
+    }
+  }
+
+  @media (max-width: 400px) {
+    .logo img {
+      width: 150px; // Reduz ainda mais a logo em telas muito pequenas
+    }
+
+    .centered-image img {
+      max-width: 150px; // Ajusta o tamanho da imagem centralizada
     }
   }
 }

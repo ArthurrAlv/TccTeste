@@ -63,9 +63,34 @@ textarea {
 
 input, select {
     padding: 10px;
-    border: 1px solid lighten($text-color, 30%);
+    border: 1px solid #ddd;
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 20px;
     font-family: 'Roboto', sans-serif; // Garante que os inputs e selects também usem Roboto
+
+    @media (min-width: 2020px) {
+        padding: 12px;  // Aumenta o padding em telas maiores
+        margin-bottom: 25px; // Aumenta a margem inferior em telas maiores
+    }
+
+    @media (min-width: 2020px) {
+        padding: 15px;  // Aumenta ainda mais o padding em telas grandes
+        margin-bottom: 30px; // Aumenta a margem inferior em telas grandes
+    }
+
+    @media (min-width: 2020px) {
+        padding: 18px;  // Para telas muito grandes, um padding ainda maior
+        margin-bottom: 35px; // Aumenta a margem inferior
+    }
+}
+
+@media (min-width: 2020px) {
+    label, a, button {
+        font-size: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2.8rem;
+    }
 }

@@ -4,20 +4,41 @@
 .form-container {
   max-width: 600px; // Largura máxima
   width: 90%; // Largura inicial em 90%
-  margin: 70px auto; // Margens superior e inferior
+  margin: 70px auto 0 auto; // Margens superior e inferior
   padding: 20px;
   background-color: #fff;
 
-  // Responsividade com media query
+  // Responsividade para telas menores
   @media (max-width: 600px) {
-    margin: 20px; // Reduz as margens em telas menores
-    width: calc(100% - 40px); // Faz com que o contêiner use quase toda a largura disponível, menos a margem
+    width: calc(100% - 40px); // Usa quase toda a largura disponível, menos a margem
+    margin: 0 auto 0 auto;
+  }
+
+  // Ajustes para telas maiores
+  @media (min-width: 2020px) {
+    max-width: 800px;
+    padding: 12px; // Aumenta o padding em telas maiores
+    margin-bottom: 25px; // Aumenta a margem inferior em telas maiores
+
+    label, a, button {
+      font-size: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+    }
+
+    input, select, button {
+      padding: 18px; // Aumenta o padding em telas maiores
+      margin-bottom: 20px; // Ajusta a margem inferior
+      font-size: 1.2rem;
+    }
   }
 }
 
 // Estilos para o formulário de login
 .form-container form {
-  display: flex; // Mudar para flex para alinhamento
+  display: flex; // Alinhamento flex
   flex-direction: column; // Colocar os itens em coluna
   width: 100%; // Garante que o formulário use a largura total do contêiner
   box-sizing: border-box; // Para garantir que o padding não afete a largura total
@@ -32,10 +53,9 @@
   }
 
   input, select, button {
-    border-radius: $border-radius;
-    border: 1px solid #ddd;
+    border: 1px solid #aaaaaa;
     margin-bottom: 15px; // Espaço entre os campos
-    padding: 10px; // Adiciona padding para os campos
+    padding: 10px; // Padding padrão para os campos
     box-sizing: border-box; // Para garantir que o padding não afete a largura total
   }
 
@@ -47,44 +67,50 @@
     width: 100%; // Botão ocupa toda a largura
 
     &:hover {
-      background-color: #0056b3;
+      background-color: $tertiary-color;
     }
   }
 }
 
 // Estilos para a checkbox "Lembrar de mim"
 .remember-me {
-  display: flex; /* Alinha o input e o texto horizontalmente */
-  align-items: center; /* Alinha o input e o texto verticalmente */
-  margin-top: 15px; /* Ajuste o espaço acima, se necessário */
-  width: 100%; /* Garante que o contêiner ocupe toda a largura */
-  box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
+  display: flex;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: baseline;
 
   input {
-    margin-right: 8px; /* Espaço entre o input e o texto */
-    cursor: pointer; /* Muda o cursor ao passar sobre o checkbox */
-    width: auto; /* Deixa o checkbox com largura automática */
-    height: auto; /* Deixa o checkbox com altura automática */
+    margin-right: 8px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    position: relative;
+    top: 4px;
   }
 
   label {
-    font-size: 0.9rem; /* Tamanho da fonte */
-    flex: 1; /* Faz com que o label ocupe o restante da largura */
-    white-space: nowrap; /* Impede que o texto quebre para uma nova linha */
+    font-size: 0.9rem;
+    flex: 1;
+    white-space: nowrap;
   }
 }
 
 // Estilos para links adicionais fora do form-container
 .additional-links {
-  text-align: center; // Centraliza os links
-  margin-top: -20px;
-  margin-bottom: 40px; // Adiciona margem inferior para espaçamento
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 40px;
 
   a {
-    display: block; // Coloca cada link em uma nova linha
+    display: block;
     margin-top: 10px;
-    color: #007bff;
+    color: $tertiary-color;
     text-decoration: none;
+    width: fit-content;
 
     &:hover {
       text-decoration: underline;
@@ -105,4 +131,11 @@
 
 .success-message {
   color: green;
+}
+
+// Ajustes para #login-adm
+#login-adm {
+  .form-container {
+    margin: 30px auto 0 auto;
+  }
 }

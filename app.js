@@ -38,6 +38,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+
 // Importar e usar as rotas
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
@@ -74,5 +75,3 @@ sequelize.sync({ force: false }) // Use { force: true } para reiniciar tabelas a
   .catch(err => {
     console.error('Erro ao sincronizar banco de dados:', err);
   });
-
-

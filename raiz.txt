@@ -49,20 +49,4 @@ TccTeste/
 │   └── adminSeed.js
 ├── views/
 │   ├── admin/
-│   │   ├── dashboard.ejs
-│   │   ├── editarCliente.ejs
-│   │   ├── login.ejs
-│   │   ├── relatorios.ejs
-│   │   └── usuarios.ejs
-│   ├── auth/
-│   │   ├── avisoAutenticacao.ejs
-│   │   ├── login.ejs
-│   │   ├── recuperarSenha.ejs
-│   │   ├── redefinirSenha.ejs
-│   │   └── registro.ejs
-│   ├── layouts/
-│   │   ├── footer.ejs
-│   │   └── header.ejs
-│   └── usuario/
-│       └── main.ejs
-└── .env
+│   │   └── meuArquivo.ejs
