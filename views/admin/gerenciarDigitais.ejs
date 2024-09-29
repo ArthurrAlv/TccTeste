@@ -44,6 +44,10 @@
     </tbody>
   </table>
   <%- include('../layouts/footer') %>
-  <script type="module" src="/js/main.js"></script>
+  <script type="module">
+    import { initializeMQTT } from './assets/js/mqttClient.js';
+    initializeMQTT();
+  </script>
+  <script type="module" src="/assets/js/main.js"></script>
 </body>
 </html>

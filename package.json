@@ -20,6 +20,7 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "module-alias": "^2.2.3",
     "mqtt": "^5.10.1",
     "mysql2": "^3.11.3",
     "nodemailer": "^6.9.14",
@@ -29,5 +30,6 @@
     "nodemon": "^3.1.4",
     "npm-run-all": "^4.1.5",
     "sass": "^1.77.8"
-  }
+  },
+  "_moduleAliases": {}
 }

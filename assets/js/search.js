@@ -3,6 +3,16 @@ export function initializeSearch() {
     const searchButton = document.getElementById('search-button');
     const usuariosTable = document.getElementById('usuarios-table');
 
+    // Verifica se os elementos existem antes de prosseguir
+    if (!searchInput || !searchButton || !usuariosTable) {
+        console.error('Um ou mais elementos não foram encontrados:', {
+            searchInput,
+            searchButton,
+            usuariosTable
+        });
+        return; // Sai da função se os elementos não forem encontrados
+    }
+
     // Função para filtrar usuários
     function filterUsers() {
         const filter = searchInput.value.toLowerCase(); // Converte para minúsculas

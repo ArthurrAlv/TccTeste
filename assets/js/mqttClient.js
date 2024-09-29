@@ -1,6 +1,7 @@
 // assets/js/mqttClient.js
 import mqtt from 'mqtt/dist/mqtt.min.js';
 
+
 export function initializeMQTT() {
     const client = mqtt.connect('ws://localhost:9001'); // Adaptar para o protocolo WebSocket
 

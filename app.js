@@ -5,6 +5,7 @@ const session = require('express-session');
 const path = require('path');
 const dotenv = require('dotenv');
 const sequelize = require('./config/db'); // Importando o sequelize
+const mqttClient = require('./config/mqttClient');
 const app = express();
 
 dotenv.config();
@@ -38,6 +39,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+require('module-alias/register');
 
 // Importar e usar as rotas
 const authRoutes = require('./routes/authRoutes');
