@@ -157,6 +157,121 @@
     }
   }
 
+  .gerenciarDigitais {
+    main {
+      margin: 0 40px;
+      align-items: center;
+    }
+  
+    form {
+      max-width: 600px;
+  
+      button {
+        padding: 10px;
+      }
+    }
+  
+    .adicionar-digital-form {
+      margin-bottom: 40px;
+    }
+  
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+  
+      th, td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+  
+      th {
+        background-color: #f4f4f4;
+      }
+  
+      td {
+        background-color: #fff;
+      }
+  
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+  
+      .action-icons {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        justify-content: center;
+        
+        @media (max-width: 400px) {
+          flex-direction: column;
+          gap: 10px;
+          min-height: 60px;
+        }
+  
+        form {
+          display: inline-flex;
+  
+          button.edit-icon-btn, button.delete-icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+  
+            i {
+              font-size: 1.2rem;
+              transition: color 0.3s;
+            }
+  
+            &.edit-icon-btn i {
+              color: #333;
+            }
+  
+            &.delete-icon-btn i {
+              color: red;
+            }
+  
+            &:hover i {
+              color: darkred; /* Para o ícone de exclusão */
+            }
+          }
+        }
+      }
+    }
+  
+    @media (max-width: 400px) {
+      th, td {
+        font-size: 0.8rem;
+        padding: 5px;
+      }
+    }
+  
+    .search-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      max-width: 600px;
+      width: 100%;
+    
+      input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px 0 0 4px;
+      }
+    
+      button {
+        width: auto;
+        height: auto;
+      }
+  
+      input {
+        margin: 0;
+      }
+    }
+  }
 
   .dashboard {
     .dashboard-container {
