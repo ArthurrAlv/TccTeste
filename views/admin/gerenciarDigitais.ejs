@@ -13,11 +13,12 @@
   <main>
     <form action="/digitais/cadastrar" method="POST" class="adicionar-digital-form">
       <h1>Gerenciar Digitais</h1>
+      <!-- Campo de Nome do Aluno -->
       <input type="text" name="nome" placeholder="Nome do Aluno" required />
-      <input type="number" name="id" placeholder="ID da Digital" required />
       <button type="submit">Cadastrar</button>
     </form>
 
+    <!-- Campo de Pesquisa -->
     <div class="search-container">
       <input type="text" placeholder="Pesquisar Digital..." id="search">
       <button type="button" id="search-button">
@@ -25,6 +26,7 @@
       </button>
     </div>
 
+    <!-- Tabela de Digitais -->
     <table id="digitais-table">
       <thead>
         <tr>
@@ -40,19 +42,23 @@
             <td><%= digital.nome %></td>
             <td>
               <div class="action-icons">
-                <form action="/digitais/editar/<%= digital.id %>" method="POST" style="display:inline;">
-                  <input type="text" name="nome" value="<%= digital.nome %>" />
+                <!-- Formulário para Editar Digital -->
+                <form action="/digitais/editar/<%= digital.id %>" method="POST" class="edit-form" data-id="<%= digital.id %>">
+                  <input type="hidden" name="_method" value="PUT"> <!-- Campo oculto para simular PUT -->
+                  <input type="hidden" name="nome" value="<%= digital.nome %>" />
                   <button type="submit" class="edit-icon-btn">
-                    <i class="fas fa-pencil-alt"></i>
+                      <i class="fas fa-pencil-alt"></i>
                   </button>
                 </form>
-                <form action="/digitais/excluir/<%= digital.id %>" method="POST" style="display:inline;">
+                
+                <!-- Formulário para Excluir Digital -->
+                <form action="/digitais/excluir/<%= digital.id %>" method="POST" style="display:inline;" class="delete-form">
                   <button type="submit" class="delete-icon-btn">
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </form>
               </div>
-            </td>
+            </td>            
           </tr>
         <% }) %>
       </tbody>
@@ -60,10 +66,6 @@
   </main>  
 
   <%- include('../layouts/footer') %>
-  <script type="module">
-    import { initializeMQTT } from './assets/js/mqttClient.js';
-    initializeMQTT();
-  </script>
   <script type="module" src="/assets/js/main.js"></script>
 </body>
 </html>

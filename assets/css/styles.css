@@ -602,6 +602,12 @@ footer p {
 .gerenciarDigitais .adicionar-digital-form {
   margin-bottom: 40px;
 }
+.gerenciarDigitais #edit-modal .button-modal {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
 .gerenciarDigitais table {
   width: 100%;
   border-collapse: collapse;

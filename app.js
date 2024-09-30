@@ -5,8 +5,13 @@ const session = require('express-session');
 const path = require('path');
 const dotenv = require('dotenv');
 const sequelize = require('./config/db'); // Importando o sequelize
-const mqttClient = require('./config/mqttClient');
+const { initializeWebSocket } = require('./config/mqttWebSocket'); // Importando o WebSocket
+const methodOverride = require('method-override');
+
+
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 dotenv.config();
 
@@ -58,16 +63,14 @@ app.use('/admin', adminRoutes);
 app.use('/digitais', digitalRoutes);
 app.use('/usuario', userRoutes);
 
-/*
-// Importar e definir associações
-require('./models/associations');
-*/
-
 // Porta do servidor
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+// Inicialize o WebSocket
+initializeWebSocket(server);
 
 // Sincronização do Sequelize (opcional, útil durante o desenvolvimento)
 sequelize.sync({ force: false }) // Use { force: true } para reiniciar tabelas a cada execução (cuidado!)

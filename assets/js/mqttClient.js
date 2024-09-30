@@ -1,21 +1,23 @@
 // assets/js/mqttClient.js
-import mqtt from 'mqtt/dist/mqtt.min.js';
 
+export function initializeWebSocket() {
+    const socket = new WebSocket('ws://localhost:3000');
 
-export function initializeMQTT() {
-    const client = mqtt.connect('ws://localhost:9001'); // Adaptar para o protocolo WebSocket
+    socket.onopen = () => {
+        console.log('Conectado ao WebSocket do servidor');
+    };
 
-    client.on('connect', () => {
-        console.log('Conectado ao broker MQTT via WebSocket');
-    });
+    socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        console.log(`Mensagem recebida do tópico ${data.topic}: ${data.message}`);
+        // Faça o que precisar com a mensagem recebida
+    };
 
-    client.subscribe('digitais/+', (err) => {
-        if (!err) {
-            console.log('Inscrito nos tópicos de digitais');
-        }
-    });
+    socket.onclose = () => {
+        console.log('Desconectado do WebSocket do servidor');
+    };
 
-    client.on('message', (topic, message) => {
-        console.log(`Mensagem recebida do tópico ${topic}: ${message.toString()}`);
-    });
+    socket.onerror = (error) => {
+        console.error('Erro no WebSocket:', error);
+    };
 }

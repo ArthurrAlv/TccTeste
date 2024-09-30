@@ -1,7 +1,9 @@
-// main.js
+// assets/js/main.js
 import { initNavigation } from './navigation.js';
 import { goBack } from './helpers.js';
-import { initializeSearch } from './search.js'; // Importa a função de pesquisa
+import { initializeSearch } from './search.js'; 
+import { initializeWebSocket } from './mqttClient.js';
+import { initializeDigitais } from './digitais.js'; // Importa a função de digitais
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
@@ -14,4 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicializa a funcionalidade de pesquisa
     initializeSearch();
+
+    // Inicializa a funcionalidade de digitais
+    initializeDigitais();
+
+    // Inicializa o WebSocket
+    initializeWebSocket();
 });
