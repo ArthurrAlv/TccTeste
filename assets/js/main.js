@@ -5,8 +5,10 @@ import { initializeSearch } from './search.js';
 import { initializeWebSocket } from './mqttClient.js';
 import { initializeDigitais } from './digitais.js'; // Importa a função de digitais
 
+
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
+
 
     // Associa o evento de clique ao botão "Voltar"
     const backButton = document.querySelector('#back-button');

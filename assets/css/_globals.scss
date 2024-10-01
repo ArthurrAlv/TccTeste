@@ -61,6 +61,38 @@ textarea {
     color: lighten($primary-color, 10%); // Clareia a cor ao passar o mouse
 }
 
+/* Estilo do modal */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+
+}
+
+.button-modal {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 40px;
+}
+
+
+
 input, select {
     padding: 10px;
     border: 1px solid #ddd;

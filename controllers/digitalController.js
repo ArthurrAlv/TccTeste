@@ -40,49 +40,57 @@ const digitalController = {
     }
   ],
 
-  editarDigital: [
-    body('nome').notEmpty().withMessage('O nome é obrigatório.'),
-    
-    async (req, res) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        const digitais = await Digital.findAll();
-        return res.render('admin/gerenciarDigitais', { digitais, errors: errors.array() });
-      }
-  
-      try {
-        const { id } = req.params;
-        const { nome } = req.body;
-  
-        // Atualiza o nome com base no ID
-        await Digital.update({ nome }, { where: { id } });
-  
-        // Publica a atualização via MQTT
-        mqttClient.publish('digitais/editar', JSON.stringify({ id, nome }));
-  
-        // Redireciona após a edição
-        res.redirect('/digitais');
-      } catch (error) {
-        console.error(error);
-        res.status(500).send('Erro ao editar digital');
-      }
-    }
-  ],  
+    editarDigital: [
+      body('nome').notEmpty().withMessage('O nome é obrigatório.'),
+      
+      async (req, res) => {
+          const errors = validationResult(req);
+          if (!errors.isEmpty()) {
+              const digitais = await Digital.findAll();
+              return res.render('admin/gerenciarDigitais', { digitais, errors: errors.array() });
+          }
 
+          try {
+              const { id } = req.params;
+              const { nome } = req.body;
+
+              // Atualiza o nome com base no ID
+              await Digital.update({ nome }, { where: { id } });
+
+              // Publica a atualização via MQTT
+              mqttClient.publish('digitais/editar', JSON.stringify({ id, nome }));
+
+              // Redireciona após a edição
+              res.redirect('/digitais');
+          } catch (error) {
+              console.error(error);
+              res.status(500).send('Erro ao editar digital');
+          }
+      }
+  ],
 
   excluirDigital: async (req, res) => {
-    try {
-      const { id } = req.params;
-      await Digital.destroy({ where: { id } });
-
-      mqttClient.publish('digitais/excluir', JSON.stringify({ id }));
-
-      res.redirect('/digitais');
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Erro ao excluir digital');
-    }
+      try {
+          const { id } = req.params;
+          
+          // Publica a exclusão via MQTT
+          mqttClient.publish('digitais/excluir', JSON.stringify({ id }));
+          
+          // Remover do banco de dados após confirmação do ESP
+          mqttClient.on('message', async (topic, message) => {
+              if (topic === 'digitais/confirmacao_excluir') {
+                  const response = JSON.parse(message.toString());
+                  if (response.id === id && response.success) {
+                      await Digital.destroy({ where: { id } });
+                      return res.redirect('/digitais');
+                  }
+              }
+          });
+      } catch (error) {
+          console.error(error);
+          res.status(500).send('Erro ao excluir digital');
+      }
   },
-};
+  };
 
 module.exports = digitalController;

@@ -15,7 +15,7 @@
       <h1>Gerenciar Digitais</h1>
       <!-- Campo de Nome do Aluno -->
       <input type="text" name="nome" placeholder="Nome do Aluno" required />
-      <button type="submit">Cadastrar</button>
+      <button  id="add-digital-btn" type="submit">Cadastrar</button>
     </form>
 
     <!-- Campo de Pesquisa -->
@@ -38,29 +38,29 @@
       <tbody>
         <% digitais.forEach(digital => { %>
           <tr>
-            <td><%= digital.id %></td>
-            <td><%= digital.nome %></td>
-            <td>
-              <div class="action-icons">
-                <!-- Formulário para Editar Digital -->
-                <form action="/digitais/editar/<%= digital.id %>" method="POST" class="edit-form" data-id="<%= digital.id %>">
-                  <input type="hidden" name="_method" value="PUT"> <!-- Campo oculto para simular PUT -->
-                  <input type="hidden" name="nome" value="<%= digital.nome %>" />
-                  <button type="submit" class="edit-icon-btn">
-                      <i class="fas fa-pencil-alt"></i>
-                  </button>
-                </form>
-                
-                <!-- Formulário para Excluir Digital -->
-                <form action="/digitais/excluir/<%= digital.id %>" method="POST" style="display:inline;" class="delete-form">
-                  <button type="submit" class="delete-icon-btn">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </form>
-              </div>
-            </td>            
+              <td><%= digital.id %></td>
+              <td><%= digital.nome %></td>
+              <td>
+                  <div class="action-icons">
+                      <!-- Formulário para Editar Digital -->
+                      <form action="/digitais/editar/<%= digital.id %>" method="POST" class="edit-form" data-id="<%= digital.id %>">
+                          <input type="hidden" name="_method" value="PUT"> <!-- Campo oculto para simular PUT -->
+                          <input type="hidden" name="nome" value="<%= digital.nome %>" />
+                          <button type="submit" class="edit-icon-btn">
+                              <i class="fas fa-pencil-alt"></i>
+                          </button>
+                      </form>
+      
+                      <!-- Formulário para Excluir Digital -->
+                      <form action="/digitais/excluir/<%= digital.id %>" method="POST" style="display:inline;" class="delete-form">
+                          <button type="submit" class="delete-icon-btn" type="button"> <!-- Adiciona type="button" aqui -->
+                              <i class="fas fa-trash-alt"></i>
+                          </button>
+                      </form>
+                  </div>
+              </td>
           </tr>
-        <% }) %>
+        <% }) %>      
       </tbody>
     </table>
   </main>  

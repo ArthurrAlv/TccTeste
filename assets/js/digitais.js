@@ -1,5 +1,3 @@
-// assets/js/digitais.js
-
 // Função para gerar um ID automático
 function gerarID() {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -29,88 +27,167 @@ function initializeDigitais() {
         });
     }
 
-    // Adicionar confirmação antes de excluir uma digital
-    const deleteForms = document.querySelectorAll('.delete-form');
-    deleteForms.forEach(form => {
+    // Adicionar evento de confirmação antes de excluir uma digital
+    document.querySelectorAll('.delete-form').forEach(form => {
         form.addEventListener('submit', (event) => {
-            const confirmed = confirm('Tem certeza que deseja excluir esta digital?');
-            if (!confirmed) {
-                event.preventDefault();
-            }
+            event.preventDefault();
+            const nomeCell = form.closest('tr').querySelector('td:nth-child(2)'); // Acessa o <td> correto
+            const nomeDigital = nomeCell ? nomeCell.textContent : 'Nome não encontrado'; // Obtém o nome da digital
+    
+            // Mostrar o modal de confirmação de exclusão
+            showProcessModal('Tem certeza que deseja excluir esta digital?', nomeDigital, () => {
+                // Envia o comando ao ESP para excluir a digital
+                mqttClient.publish('digitais/excluir', JSON.stringify({ id }));
+    
+                // Espera pela confirmação do ESP
+                mqttClient.subscribe('digitais/confirmacao_excluir', (topic, message) => {
+                    const response = JSON.parse(message.toString());
+                    if (response.id === id) {
+                        if (response.success) {
+                            alert('Digital excluída com sucesso!');
+                            location.reload();
+                        } else {
+                            alert('Erro ao excluir a digital. Tente novamente.');
+                        }
+                    }
+                });
+            });
         });
-    });
+    });    
 
-    // Função para mostrar a caixa de edição flutuante
+
+    // Função para mostrar o modal de edição
     function showEditModal(digitalId, currentName) {
-        // Criar o fundo escuro
-        const overlay = document.createElement('div');
-        overlay.id = 'overlay';
-        overlay.style.position = 'fixed';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        overlay.style.display = 'flex';
-        overlay.style.justifyContent = 'center';
-        overlay.style.alignItems = 'center';
-        overlay.style.zIndex = '9999';
+        // Remover qualquer modal existente
+        removeExistingModals();
 
-        // Criar a caixa de edição
+        // Criar o modal de edição
         const modal = document.createElement('div');
-        modal.id = 'edit-modal';
-        modal.style.backgroundColor = '#fff';
-        modal.style.padding = '20px';
-        modal.style.borderRadius = '5px';
-        modal.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
-        modal.style.width = '400px';
+        modal.id = 'overlay';
         modal.innerHTML = `
-            <h2>Editar Digital</h2>
-            <input type="text" id="edit-name" value="${currentName}" />
-            <div class="button-modal">
-            <button id="confirm-edit">OK</button>
-            <button id="cancel-edit">Cancelar</button>
+            <div id="edit-modal" class="modal-content">
+                <h2>Editar Digital</h2>
+                <input type="text" id="edit-name" value="${currentName}" />
+                <div class="button-modal">
+                    <button id="confirm-edit">OK</button>
+                    <button id="cancel-edit">Cancelar</button>
+                </div>
             </div>
         `;
-
-        // Adicionar a caixa e o fundo ao corpo do documento
-        overlay.appendChild(modal);
-        document.body.appendChild(overlay);
+        document.body.appendChild(modal);
 
         // Ações dos botões
         document.getElementById('confirm-edit').addEventListener('click', () => {
-            const newName = document.getElementById('edit-name').value;
-            const confirmed = confirm('Tem certeza que deseja confirmar a edição?');
-        
-            if (confirmed) {
+            const newName = document.getElementById('edit-name').value.trim();
+            if (newName) {
                 // Atualiza o valor do campo oculto 'nome'
-                document.querySelector(`form.edit-form[data-id="${digitalId}"] input[name="nome"]`).value = newName;
-        
-                // Submete o formulário
-                document.querySelector(`form.edit-form[data-id="${digitalId}"]`).submit();
+                const form = document.querySelector(`form.edit-form[data-id="${digitalId}"]`);
+                form.querySelector('input[name="nome"]').value = newName;
+                form.submit();
             }
-            document.body.removeChild(overlay);
-        });        
-
-        document.getElementById('cancel-edit').addEventListener('click', () => {
-            document.body.removeChild(overlay);
+            removeExistingModals();
         });
+
+        document.getElementById('cancel-edit').addEventListener('click', removeExistingModals);
     }
 
-    // Adicionar evento de clique para edição
-    const editButtons = document.querySelectorAll('.edit-icon-btn');
-    editButtons.forEach(button => {
+    // Função para mostrar o modal de cadastro de digital
+    function showAddModal() {
+        removeExistingModals();
+
+        const modal = document.createElement('div');
+        modal.id = 'overlay';
+        modal.innerHTML = `
+            <div id="add-modal" class="modal-content">
+                <h2>Adicionar Digital</h2>
+                <input type="text" id="add-name" placeholder="Nome da Digital" />
+                <div class="button-modal">
+                    <button id="confirm-add">Cadastrar</button>
+                    <button id="cancel-add">Cancelar</button>
+                </div>
+                <p id="status-message"></p>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        document.getElementById('confirm-add').addEventListener('click', () => {
+            const name = document.getElementById('add-name').value.trim();
+            const statusMessage = document.getElementById('status-message');
+
+            if (name) {
+                const id = gerarID();
+                mqttClient.publish('digitais/cadastrar', JSON.stringify({ id, nome: name }));
+                statusMessage.textContent = 'Aguarde, cadastrando a digital...';
+
+                mqttClient.subscribe('digitais/confirmacao', (topic, message) => {
+                    const response = JSON.parse(message.toString());
+                    if (response.id === id) {
+                        if (response.success) {
+                            alert('Digital cadastrada com sucesso!');
+                            location.reload();
+                        } else {
+                            alert('Erro ao cadastrar a digital. Tente novamente.');
+                        }
+                        removeExistingModals();
+                    }
+                });
+            } else {
+                alert('O campo de nome é obrigatório.');
+            }
+        });
+
+        document.getElementById('cancel-add').addEventListener('click', removeExistingModals);
+    }
+
+    // Função para mostrar o modal de processos (exclusão e mensagens gerais)
+    function showProcessModal(message, name, onConfirm) {
+        removeExistingModals();
+
+        const modal = document.createElement('div');
+        modal.id = 'overlay';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <p class"digital-name">${message} Digital: <strong>${name}</strong></p>
+                <div class="button-modal">
+                    <button id="confirm-process">Sim</button>
+                    <button id="cancel-process">Não</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        document.getElementById('confirm-process').addEventListener('click', () => {
+            onConfirm();
+            removeExistingModals();
+        });
+
+        document.getElementById('cancel-process').addEventListener('click', removeExistingModals);
+    }
+
+    // Função para remover modais existentes
+    function removeExistingModals() {
+        const existingModal = document.getElementById('overlay');
+        if (existingModal) {
+            existingModal.remove();
+        }
+    }
+
+    // Associar evento de clique para o botão de adicionar digital
+    document.getElementById('add-digital-btn').addEventListener('click', (event) => {
+        event.preventDefault();
+        showAddModal();
+    });
+
+    // Adicionar eventos de clique para os botões de edição
+    document.querySelectorAll('.edit-icon-btn').forEach(button => {
         button.addEventListener('click', (event) => {
-            event.preventDefault(); // Impede a submissão do formulário padrão
-    
+            event.preventDefault();
             const form = button.closest('form');
-            const digitalId = form.getAttribute('data-id'); // ID do digital
-            const currentName = form.querySelector('input[name="nome"]').value; // Acessa o campo oculto
-    
-            // Mostrar a caixa de edição
+            const digitalId = form.getAttribute('data-id');
+            const currentName = form.querySelector('input[name="nome"]').value;
             showEditModal(digitalId, currentName);
         });
-    });      
+    });
 }
 
 export { initializeDigitais };
