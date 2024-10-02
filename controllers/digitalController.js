@@ -3,9 +3,29 @@ const { body, validationResult } = require('express-validator');
 const Digital = require('../models/digital');
 const mqttClient = require('../config/mqttClient');
 
-mqttClient.on('message', (topic, message) => {
-  console.log(`Mensagem recebida no tópico ${topic}:`, message.toString());
-});
+
+// Função para exibir mensagens no modal
+function showModalMessage(message) {
+  const modal = document.getElementById('status-modal');
+  if (modal) {
+      const messageElement = modal.querySelector('#status-message');
+      if (messageElement) {
+          messageElement.textContent = message;
+      }
+  }
+}
+
+// Função para tentar excluir a digital com múltiplas tentativas
+function retryDeleteDigital(id, retries = 3) {
+  if (retries === 0) {
+      showModalMessage('Erro ao excluir a digital. Tente novamente.');
+      return;
+  }
+  mqttClient.publish('digitais/excluir', JSON.stringify({ id }));
+  showModalMessage('Tentando excluir a digital...');
+  
+  setTimeout(() => retryDeleteDigital(id, retries - 1), 2000); // Tentar novamente após 2 segundos
+}
 
 const digitalController = {
   listarDigitais: async (req, res) => {
@@ -74,27 +94,31 @@ const digitalController = {
   excluirDigital: async (req, res) => {
     try {
       const { id } = req.params;
-
-      // Publicar a requisição de exclusão via MQTT
+      
+      // Enviar requisição de exclusão
       mqttClient.publish('digitais/excluir', JSON.stringify({ id }));
-
-      // Escutar confirmação do ESP para remover do banco
+      res.status(200).json({ message: 'Tentando excluir a digital...' });
+  
       const excluirDigitalListener = async (topic, message) => {
         if (topic === 'digitais/confirmacao_excluir') {
           const response = JSON.parse(message.toString());
-          if (response.id === id && response.success) {
-            await Digital.destroy({ where: { id } });
-            mqttClient.removeListener('message', excluirDigitalListener); // Remover o listener após confirmação
-            return res.redirect('/digitais');
+          if (response.id === id) {
+            if (response.success) {
+              await Digital.destroy({ where: { id } });
+              mqttClient.removeListener('message', excluirDigitalListener);
+              res.json({ message: 'Digital excluída com sucesso!' });
+            } else {
+              res.json({ message: 'Erro ao excluir digital. Tentando novamente...' });
+            }
           }
         }
       };
-
+  
       mqttClient.on('message', excluirDigitalListener);
-
+  
     } catch (error) {
       console.error(error);
-      res.status(500).send('Erro ao excluir digital');
+      res.status(500).json({ message: 'Erro ao excluir digital' });
     }
   },
 };

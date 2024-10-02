@@ -122,29 +122,37 @@ function initializeDigitais() {
         `;
         document.body.appendChild(modal);
 
+        const statusMessage = document.getElementById('status-message');
+
         document.getElementById('confirm-add').addEventListener('click', () => {
             const name = document.getElementById('add-name').value.trim();
-            const statusMessage = document.getElementById('status-message');
 
             if (name) {
                 const id = gerarID();
+                statusMessage.textContent = 'Conectando ao dispositivo...';
+
+                // Enviar comando para o servidor via MQTT
                 window.socket.publish('digitais/cadastrar', JSON.stringify({ id, nome: name }));
                 statusMessage.textContent = 'Aguarde, cadastrando a digital...';
 
+                // Escutar resposta do dispositivo
                 window.socket.subscribe('digitais/confirmacao', (topic, message) => {
-                    const response = JSON.parse(message.toString());
-                    if (response.id === id) {
-                        if (response.success) {
-                            alert('Digital cadastrada com sucesso!');
-                            location.reload();
-                        } else {
-                            alert('Erro ao cadastrar a digital. Tente novamente.');
+                    try {
+                        const response = JSON.parse(message.toString());
+                        if (response.id === id) {
+                            if (response.success) {
+                                statusMessage.textContent = 'Digital cadastrada com sucesso!';
+                                setTimeout(() => location.reload(), 2000);
+                            } else {
+                                statusMessage.textContent = 'Erro ao cadastrar a digital. Tentando novamente...';
+                            }
                         }
-                        removeExistingModals();
+                    } catch (e) {
+                        statusMessage.textContent = 'Erro na resposta do dispositivo. Tente novamente.';
                     }
                 });
             } else {
-                alert('O campo de nome é obrigatório.');
+                statusMessage.textContent = 'O campo de nome é obrigatório.';
             }
         });
 
@@ -159,7 +167,8 @@ function initializeDigitais() {
         modal.id = 'overlay';
         modal.innerHTML = `
             <div class="modal-content">
-                <p class"digital-name">${message} Digital: <strong>${name}</strong></p>
+                ${message}    
+                <div class="digital-name"> Digital: <strong>${name}</strong></div>
                 <div class="button-modal">
                     <button id="confirm-process">Sim</button>
                     <button id="cancel-process">Não</button>

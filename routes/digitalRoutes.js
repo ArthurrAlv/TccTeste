@@ -5,10 +5,10 @@ const digitalController = require('../controllers/digitalController');
 const authAdmin = require('../middleware/authAdmin');
 
 // Rotas para gerenciamento de digitais
-router.get('/', authAdmin, digitalController.listarDigitais);
-router.post('/cadastrar', authAdmin, digitalController.cadastrarDigital);
+router.get('/', digitalController.listarDigitais);
+router.post('/cadastrar', digitalController.cadastrarDigital);
 router.put('/editar/:id', digitalController.editarDigital);
-router.delete('/excluir/:id', authAdmin, digitalController.excluirDigital);
+router.delete('/excluir/:id', digitalController.excluirDigital);
 
 module.exports = router;
 
