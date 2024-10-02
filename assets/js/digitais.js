@@ -1,9 +1,3 @@
-import { initializeWebSocket } from '/assets/js/mqttClient.js';
-
-// Inicialize a conexão WebSocket
-initializeWebSocket();
-
-
 // Função para gerar um ID automático
 function gerarID() {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -37,15 +31,13 @@ function initializeDigitais() {
     document.querySelectorAll('.delete-form').forEach(form => {
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            const nomeCell = form.closest('tr').querySelector('td:nth-child(2)'); // Acessa o <td> correto
-            const nomeDigital = nomeCell ? nomeCell.textContent : 'Nome não encontrado'; // Obtém o nome da digital
-    
-            // Mostrar o modal de confirmação de exclusão
+            const nomeCell = form.closest('tr').querySelector('td:nth-child(2)');
+            const nomeDigital = nomeCell ? nomeCell.textContent : 'Nome não encontrado';
+            const id = form.closest('tr').querySelector('td:nth-child(1)').textContent;
+
             showProcessModal('Tem certeza que deseja excluir esta digital?', nomeDigital, () => {
-                // Envia o comando ao ESP para excluir a digital
                 window.socket.publish('digitais/excluir', JSON.stringify({ id }));
-    
-                // Espera pela confirmação do ESP
+
                 window.socket.subscribe('digitais/confirmacao_excluir', (topic, message) => {
                     const response = JSON.parse(message.toString());
                     if (response.id === id) {
@@ -59,15 +51,12 @@ function initializeDigitais() {
                 });
             });
         });
-    });    
-
+    });
 
     // Função para mostrar o modal de edição
     function showEditModal(digitalId, currentName) {
-        // Remover qualquer modal existente
         removeExistingModals();
-
-        // Criar o modal de edição
+    
         const modal = document.createElement('div');
         modal.id = 'overlay';
         modal.innerHTML = `
@@ -81,19 +70,36 @@ function initializeDigitais() {
             </div>
         `;
         document.body.appendChild(modal);
-
-        // Ações dos botões
-        document.getElementById('confirm-edit').addEventListener('click', () => {
+    
+        document.getElementById('confirm-edit').addEventListener('click', async () => {
             const newName = document.getElementById('edit-name').value.trim();
             if (newName) {
-                // Atualiza o valor do campo oculto 'nome'
-                const form = document.querySelector(`form.edit-form[data-id="${digitalId}"]`);
-                form.querySelector('input[name="nome"]').value = newName;
-                form.submit();
+                try {
+                    // Fazendo a requisição PUT para a rota correta
+                    const response = await fetch(`/digitais/editar/${digitalId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ nome: newName })
+                    });
+    
+                    const result = await response.json();
+    
+                    if (result.success) {
+                        alert('Digital editada com sucesso!');
+                        location.reload();
+                    } else {
+                        alert('Erro ao editar a digital. Tente novamente.');
+                    }
+                } catch (error) {
+                    console.error('Erro ao editar digital:', error);
+                    alert('Erro ao editar a digital.');
+                }
             }
             removeExistingModals();
         });
-
+    
         document.getElementById('cancel-edit').addEventListener('click', removeExistingModals);
     }
 
@@ -181,11 +187,7 @@ function initializeDigitais() {
     // Associar evento de clique para o botão de adicionar digital
     document.getElementById('add-digital-btn').addEventListener('click', (event) => {
         event.preventDefault();
-
-        // Pegar o valor inserido no campo de nome do formulário
         const nomeInicial = document.querySelector('input[name="nome"]').value.trim();
-
-        // Abrir o modal com o nome inserido
         showAddModal(nomeInicial);
     });
 

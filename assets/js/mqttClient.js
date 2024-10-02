@@ -1,10 +1,7 @@
 // assets/js/mqttClient.js
-import mqtt from 'mqtt';
 
 export function initializeWebSocket() {
-    // Conecta ao broker MQTT usando a URL WebSocket apropriada
-    const socket = mqtt.connect('ws://localhost:3000'); // Altere para a porta correta
-
+    const socket = mqtt.connect('ws://localhost:3000'); // Use o caminho correto
     window.socket = socket;
 
     socket.on('connect', () => {
@@ -13,7 +10,6 @@ export function initializeWebSocket() {
 
     socket.on('message', (topic, message) => {
         console.log(`Mensagem recebida do tópico ${topic}: ${message.toString()}`);
-        // Faça o que precisar com a mensagem recebida
     });
 
     socket.on('error', (error) => {

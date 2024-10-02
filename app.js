@@ -40,6 +40,8 @@ app.use(express.json()); // Esta linha já abrange o body-parser
 // Configurar o middleware para servir arquivos estáticos
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
+app.use('/node_modules', express.static(__dirname + '/node_modules'));
+
 // Configuração do EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
