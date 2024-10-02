@@ -1,3 +1,9 @@
+import { initializeWebSocket } from '/assets/js/mqttClient.js';
+
+// Inicialize a conexão WebSocket
+initializeWebSocket();
+
+
 // Função para gerar um ID automático
 function gerarID() {
     return Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -37,10 +43,10 @@ function initializeDigitais() {
             // Mostrar o modal de confirmação de exclusão
             showProcessModal('Tem certeza que deseja excluir esta digital?', nomeDigital, () => {
                 // Envia o comando ao ESP para excluir a digital
-                mqttClient.publish('digitais/excluir', JSON.stringify({ id }));
+                window.socket.publish('digitais/excluir', JSON.stringify({ id }));
     
                 // Espera pela confirmação do ESP
-                mqttClient.subscribe('digitais/confirmacao_excluir', (topic, message) => {
+                window.socket.subscribe('digitais/confirmacao_excluir', (topic, message) => {
                     const response = JSON.parse(message.toString());
                     if (response.id === id) {
                         if (response.success) {
@@ -92,7 +98,7 @@ function initializeDigitais() {
     }
 
     // Função para mostrar o modal de cadastro de digital
-    function showAddModal() {
+    function showAddModal(nomeInicial = '') {
         removeExistingModals();
 
         const modal = document.createElement('div');
@@ -100,7 +106,7 @@ function initializeDigitais() {
         modal.innerHTML = `
             <div id="add-modal" class="modal-content">
                 <h2>Adicionar Digital</h2>
-                <input type="text" id="add-name" placeholder="Nome da Digital" />
+                <input type="text" id="add-name" placeholder="Nome da Digital" value="${nomeInicial}" />
                 <div class="button-modal">
                     <button id="confirm-add">Cadastrar</button>
                     <button id="cancel-add">Cancelar</button>
@@ -116,10 +122,10 @@ function initializeDigitais() {
 
             if (name) {
                 const id = gerarID();
-                mqttClient.publish('digitais/cadastrar', JSON.stringify({ id, nome: name }));
+                window.socket.publish('digitais/cadastrar', JSON.stringify({ id, nome: name }));
                 statusMessage.textContent = 'Aguarde, cadastrando a digital...';
 
-                mqttClient.subscribe('digitais/confirmacao', (topic, message) => {
+                window.socket.subscribe('digitais/confirmacao', (topic, message) => {
                     const response = JSON.parse(message.toString());
                     if (response.id === id) {
                         if (response.success) {
@@ -175,7 +181,12 @@ function initializeDigitais() {
     // Associar evento de clique para o botão de adicionar digital
     document.getElementById('add-digital-btn').addEventListener('click', (event) => {
         event.preventDefault();
-        showAddModal();
+
+        // Pegar o valor inserido no campo de nome do formulário
+        const nomeInicial = document.querySelector('input[name="nome"]').value.trim();
+
+        // Abrir o modal com o nome inserido
+        showAddModal(nomeInicial);
     });
 
     // Adicionar eventos de clique para os botões de edição

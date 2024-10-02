@@ -1,23 +1,26 @@
 // assets/js/mqttClient.js
+import mqtt from 'mqtt';
 
 export function initializeWebSocket() {
-    const socket = new WebSocket('ws://localhost:3000');
+    // Conecta ao broker MQTT usando a URL WebSocket apropriada
+    const socket = mqtt.connect('ws://localhost:3000'); // Altere para a porta correta
 
-    socket.onopen = () => {
-        console.log('Conectado ao WebSocket do servidor');
-    };
+    window.socket = socket;
 
-    socket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        console.log(`Mensagem recebida do tópico ${data.topic}: ${data.message}`);
+    socket.on('connect', () => {
+        console.log('Conectado ao broker MQTT');
+    });
+
+    socket.on('message', (topic, message) => {
+        console.log(`Mensagem recebida do tópico ${topic}: ${message.toString()}`);
         // Faça o que precisar com a mensagem recebida
-    };
+    });
 
-    socket.onclose = () => {
-        console.log('Desconectado do WebSocket do servidor');
-    };
+    socket.on('error', (error) => {
+        console.error('Erro no cliente MQTT:', error);
+    });
 
-    socket.onerror = (error) => {
-        console.error('Erro no WebSocket:', error);
-    };
+    socket.on('close', () => {
+        console.log('Desconectado do broker MQTT');
+    });
 }
