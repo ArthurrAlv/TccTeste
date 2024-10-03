@@ -29,29 +29,63 @@ function initializeDigitais() {
 
     // Adicionar evento de confirmação antes de excluir uma digital
     document.querySelectorAll('.delete-form').forEach(form => {
-        form.addEventListener('submit', (event) => {
+        form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const nomeCell = form.closest('tr').querySelector('td:nth-child(2)');
             const nomeDigital = nomeCell ? nomeCell.textContent : 'Nome não encontrado';
             const id = form.closest('tr').querySelector('td:nth-child(1)').textContent;
-
-            showProcessModal('Tem certeza que deseja excluir esta digital?', nomeDigital, () => {
+        
+            // Mostrar o modal de confirmação para exclusão
+            showProcessModal('Tem certeza que deseja excluir esta digital?', nomeDigital, async () => {
+                // Mostrar mensagem de progresso
+                showStatusModal('Aguarde, excluindo a digital...');
+        
+                // Enviar comando para o servidor via MQTT
                 window.socket.publish('digitais/excluir', JSON.stringify({ id }));
-
-                window.socket.subscribe('digitais/confirmacao_excluir', (topic, message) => {
-                    const response = JSON.parse(message.toString());
-                    if (response.id === id) {
-                        if (response.success) {
-                            alert('Digital excluída com sucesso!');
-                            location.reload();
-                        } else {
-                            alert('Erro ao excluir a digital. Tente novamente.');
+        
+                // Aguarda a resposta assíncrona
+                return new Promise((resolve) => {
+                    // Escutar resposta do dispositivo
+                    window.socket.subscribe('digitais/confirmacao_excluir', (topic, message) => {
+                        try {
+                            const response = JSON.parse(message.toString());
+                            if (response.id === id) {
+                                if (response.success) {
+                                    showStatusModal('Digital excluída com sucesso!', true);
+                                    setTimeout(() => location.reload(), 2000);
+                                } else {
+                                    showStatusModal('Erro ao excluir a digital. Tente novamente.', false);
+                                }
+                                resolve();  // Finaliza o processo para fechar o modal
+                            }
+                        } catch (e) {
+                            showStatusModal('Erro na resposta do dispositivo. Tente novamente.', false);
+                            resolve();  // Finaliza o processo para fechar o modal
                         }
-                    }
+                    });
                 });
             });
-        });
+        });        
     });
+
+    // Função para mostrar modal de status do processo
+    function showStatusModal(message, success = null) {
+        removeExistingModals();
+
+        const modal = document.createElement('div');
+        modal.id = 'overlay';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <p>${message}</p>
+                ${success === null ? '' : `<p>${success ? 'Operação bem-sucedida!' : 'Operação falhou. Tente novamente.'}</p>`}
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        if (success !== null) {
+            setTimeout(() => removeExistingModals(), 3000); // Fechar automaticamente após 3 segundos
+        }
+    }
 
     // Função para mostrar o modal de edição
     function showEditModal(digitalId, currentName) {
@@ -162,13 +196,13 @@ function initializeDigitais() {
     // Função para mostrar o modal de processos (exclusão e mensagens gerais)
     function showProcessModal(message, name, onConfirm) {
         removeExistingModals();
-
+        
         const modal = document.createElement('div');
         modal.id = 'overlay';
         modal.innerHTML = `
             <div class="modal-content">
-                ${message}    
-                <div class="digital-name"> Digital: <strong>${name}</strong></div>
+                <p>${message}</p>
+                <div class="digital-name">Digital: <strong>${name}</strong></div>
                 <div class="button-modal">
                     <button id="confirm-process">Sim</button>
                     <button id="cancel-process">Não</button>
@@ -176,12 +210,14 @@ function initializeDigitais() {
             </div>
         `;
         document.body.appendChild(modal);
-
-        document.getElementById('confirm-process').addEventListener('click', () => {
-            onConfirm();
+        
+        document.getElementById('confirm-process').addEventListener('click', async () => {
+            // Mantém o modal aberto enquanto o processo de exclusão ocorre
+            await onConfirm();
+            // Somente após a confirmação, o modal será fechado
             removeExistingModals();
         });
-
+    
         document.getElementById('cancel-process').addEventListener('click', removeExistingModals);
     }
 
