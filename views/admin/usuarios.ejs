@@ -10,13 +10,13 @@
 <body class="gerenciar-usuarios">
   <%- include('../layouts/header') %>
   <main>
-    <form action="/admin/usuarios/adicionar" method="POST" class="adicionar-usuario-form">
+    <form class="adicionar-usuario-form" method="POST" action="/admin/usuarios/adicionar">
       <h1>Usuários</h1>
-      <input type="text" name="nome" placeholder="Nome" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="senha" placeholder="Senha" required>
-      <button type="submit">Adicionar Usuário</button>
-    </form>
+      <input type="text" name="nome" id="add-name" placeholder="Nome" required>
+      <input type="email" name="email" id="add-email" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+      <input type="password" name="senha" id="add-password" placeholder="Senha" required>
+      <button type="button" id="confirm-add">Adicionar Usuário</button>
+    </form>       
 
     <!-- Caixa de pesquisa -->
     <div class="search-container">
@@ -46,7 +46,7 @@
                 <a href="/admin/usuarios/editar/<%= usuario.id %>">
                   <i class="fas fa-pencil-alt"></i>
                 </a>
-                <form action="/admin/usuarios/excluir/<%= usuario.id %>" method="POST" style="display:inline;">
+                <form class="delete-form-usu" action="/admin/usuarios/excluir/<%= usuario.id %>" method="POST" style="display:inline;">
                   <button type="submit" class="delete-icon-btn">
                     <i class="fas fa-trash-alt"></i>
                   </button>

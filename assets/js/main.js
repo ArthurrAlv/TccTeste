@@ -5,12 +5,13 @@ import { initializeSearch } from './search.js';
 import { initializeWebSocket } from './mqttClient.js';
 import { initializeDigitais } from './digitais.js'; // Importa a função de digitais
 import { initializeUsuarios } from './usuarios.js';
+import { esconderAlerta } from './alert.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
 
-    initializeUsuarios();
+    esconderAlerta();
 
     // Associa o evento de clique ao botão "Voltar"
     const backButton = document.querySelector('#back-button');
@@ -21,9 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializa a funcionalidade de pesquisa
     initializeSearch();
 
-    // Inicializa a funcionalidade de digitais
-    initializeDigitais();
 
-    // Inicializa o WebSocket
-    initializeWebSocket();
+    if (window.location.pathname === '/digitais') {
+        initializeDigitais();
+
+        initializeWebSocket();
+    }
+
+    if (window.location.pathname === '/admin/usuarios') {
+        initializeUsuarios();
+    }
+
+
 });

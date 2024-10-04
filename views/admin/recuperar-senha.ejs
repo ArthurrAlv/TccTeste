@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <title>Recuperar Senha</title>
+</head>
+<body class="recuperar-senha">
+  <%- include('../layouts/header') %>
+  <main>
+    <div class="form-container">
+      <form action="/admin/recuperar-senha" method="post">
+        <h1>Recuperar Senha</h1>
+        <input type="email" name="email" placeholder="Digite seu e-mail" required>
+        <button type="submit">Recuperar Senha</button>
+      </form>
+
+      <% if (sucesso) { %>
+        <div class="alert alert-success" id="alert">
+            <%= sucesso %>
+        </div>
+      <% } %>
+      <% if (erro) { %>
+        <div class="alert alert-danger" id="alert">
+            <%= erro %>
+        </div>
+      <% } %>
+    
+    </div>
+  </main>
+  <%- include('../layouts/footer') %>
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>
