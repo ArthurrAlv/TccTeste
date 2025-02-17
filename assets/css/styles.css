@@ -438,50 +438,77 @@ footer p {
   margin-top: 20px;
 }
 
-.relatorio {
-  margin: 40px 20px;
+.relatorio main {
+  margin: 0 40px;
+  align-items: center;
 }
-
-.tabela-relatorio {
+.relatorio form {
+  max-width: 600px;
+}
+.relatorio form button {
+  padding: 10px;
+}
+.relatorio .search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  max-width: 600px;
+  width: 100%;
+}
+.relatorio .search-container input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+}
+.relatorio .search-container button {
+  width: auto;
+  height: auto;
+}
+.relatorio .search-container input {
+  margin: 0;
+}
+.relatorio .tabela-relatorio {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
+  margin-bottom: 20px;
+}
+.relatorio .tabela-relatorio th, .relatorio .tabela-relatorio td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.relatorio .tabela-relatorio th {
+  background-color: #f4f4f4;
+}
+.relatorio .tabela-relatorio td {
   background-color: #fff;
 }
-
-.tabela-relatorio th, .tabela-relatorio td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-}
-
-.tabela-relatorio th {
-  background-color: #f2f2f2;
-  color: #333;
-  font-weight: bold;
-}
-
-.tabela-relatorio tr:nth-child(even) {
+.relatorio .tabela-relatorio tr:nth-child(even) {
   background-color: #f9f9f9;
 }
-
-.tabela-relatorio tr:hover {
+.relatorio .tabela-relatorio tr:hover {
   background-color: #eaeaea;
 }
-
+@media (max-width: 400px) {
+  .relatorio th, .relatorio td {
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+}
 @media (max-width: 768px) {
-  .tabela-relatorio {
+  .relatorio .tabela-relatorio {
     border: 0;
   }
-  .tabela-relatorio thead {
+  .relatorio .tabela-relatorio thead {
     display: none;
   }
-  .tabela-relatorio tr {
+  .relatorio .tabela-relatorio tr {
     display: block;
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
   }
-  .tabela-relatorio td {
+  .relatorio .tabela-relatorio td {
     display: block;
     text-align: right;
     padding: 10px;
@@ -489,7 +516,7 @@ footer p {
     position: relative;
     padding-left: 50%;
   }
-  .tabela-relatorio td::before {
+  .relatorio .tabela-relatorio td::before {
     content: attr(data-label);
     position: absolute;
     left: 0;
@@ -500,6 +527,7 @@ footer p {
     font-weight: bold;
   }
 }
+
 .login-adm .form-container {
   max-width: 600px;
   width: 90%;

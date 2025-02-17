@@ -1,66 +1,108 @@
 .relatorio {
-    margin: 40px 20px;
-}
+  main {
+    margin: 0 40px;
+    align-items: center;
+  }
 
-.tabela-relatorio {
+  form {
+    max-width: 600px;
+
+    button {
+      padding: 10px;
+    }
+  }
+
+  .search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    max-width: 600px;
+    width: 100%;
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px 0 0 4px;
+    }
+
+    button {
+      width: auto;
+      height: auto;
+    }
+    input {
+      margin: 0;
+    }
+  }
+
+  .tabela-relatorio {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-    background-color: #fff;
+    margin-bottom: 20px;
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    td {
+      background-color: #fff;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #eaeaea;
+    }
   }
-  
-  .tabela-relatorio th, .tabela-relatorio td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+
+  @media (max-width: 400px) {
+    th, td {
+      font-size: 0.8rem;
+      padding: 5px;
+    }
   }
-  
-  .tabela-relatorio th {
-    background-color: #f2f2f2;
-    color: #333;
-    font-weight: bold;
-  }
-  
-  .tabela-relatorio tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .tabela-relatorio tr:hover {
-    background-color: #eaeaea;
-  }
-  
+
   @media (max-width: 768px) {
     .tabela-relatorio {
       border: 0;
-    }
-  
-    .tabela-relatorio thead {
-      display: none;
-    }
-  
-    .tabela-relatorio tr {
-      display: block;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #ddd;
-    }
-  
-    .tabela-relatorio td {
-      display: block;
-      text-align: right;
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-      position: relative;
-      padding-left: 50%;
-    }
-  
-    .tabela-relatorio td::before {
-      content: attr(data-label);
-      position: absolute;
-      left: 0;
-      width: 50%;
-      padding-right: 10px;
-      white-space: nowrap;
-      text-align: left;
-      font-weight: bold;
+
+      thead {
+        display: none;
+      }
+
+      tr {
+        display: block;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      td {
+        display: block;
+        text-align: right;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        position: relative;
+        padding-left: 50%;
+
+        &::before {
+          content: attr(data-label);
+          position: absolute;
+          left: 0;
+          width: 50%;
+          padding-right: 10px;
+          white-space: nowrap;
+          text-align: left;
+          font-weight: bold;
+        }
+      }
     }
   }
+}
